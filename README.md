@@ -35,7 +35,7 @@ or
 
 Where you can replace \<command\> with any command you know. Not all commands will work with the -h option, but most basic unix commands will work with man. The man (short for manual) command will bring up the documentation (also called the man page) for the command. Very useful if you ever forget what a commmand is suposed to do or the options to that command.
 
-#Grep and the Power of Regular Expressions.
+# grep and the Power of Regular Expressions.
 ![xkcd208](Images/xkcd208.png)
 *Copyright Randal Monroe(https://xkcd.com/208/)*
 
