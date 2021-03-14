@@ -45,3 +45,6 @@ Often we find ourselves in the unenviable position of needing to search large bo
 grep
 ```
 
+grep (short for **g**lobally search for a **r**egular **e**xpression and **p**rint matching lines) acts like the find function in many programs. You provide it some text and it will search a file for that text and return matching results. However unlike the find functions you may be used to grep can take and understand *regular expressions*
+## So what are these regular expressions you keep going on about?
+Regular expressions are patterns
