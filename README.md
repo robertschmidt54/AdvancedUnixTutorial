@@ -1,5 +1,5 @@
 # AdvancedUnixTutorial
-## Rob Schmidt
+### Rob Schmidt
 Tutorial for workshop given on 3/20/21
 
 This is the second in a series of tutorials for the Bioinformatics and Computational Biology workshop series on Unix. In this tutorial we will cover some more advanced Unix topics and run through a quick RNA Seq alignment and count using real (but reduced) data. 
@@ -19,5 +19,11 @@ ls \<directory\> | Lists all files in the current directory. If used without an 
 cd \<directory\> | Changes to a directory.
 rm \<file\> | Permenatly deletes a file.
 rm -r \<directory\> | Permenatly deletes a directory.
-cat \<file\> | prints contents of file to screen.
+cat \<file\> | Prints contents of file to screen.
+less \<file\> | Opens file for viewing in the less interface.
+more \<file\> | Opens file for viewing in the more interface.
 
+Commands can take multiple options as well as arguments take the rm command. See that "-r" in the rm command on line 4 of the table? That is an option. It means to perform the the remove command on all the files in \<directory\>. Options always follow 1 or 2 "-" characters in the command. You can always see a list of options for a given command by entering:
+'<command> -h'
+or
+'man <command>' 
