@@ -41,7 +41,7 @@ Where you can replace \<command\> with any command you know. Not all commands wi
 *Source: Randal Monroe(https://xkcd.com/208/)*
 
 Often we find ourselves in the unenviable position of needing to search large bodies of text for something important. This could be an address, a name, a particular gene, or gene family. We could manually go line by line and search for what we want, but that sounds very boring, and prone to error. Luckily for us Unix provides a very powerful command for searching files for what we want: 
-'''
+```
 grep
-'''
+```
 
