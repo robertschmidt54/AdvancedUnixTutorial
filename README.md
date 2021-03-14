@@ -26,13 +26,13 @@ head -n \<file\> | print top n lines of a file.
 tail -n \<file\> | print last n lines of a file.
 
 Commands can take multiple options as well as arguments take the rm command. See that "-r" in the rm command on line 4 of the table? That is an option. It means to perform the the remove command on all the files in \<directory\>. Options always follow 1 or 2 "-" characters in the command. You can always see a list of options for a given command by entering:
-
+```
 man \<command\>
-
+```
 or
-
+```
 \<command\> -h
-
+```
 Where you can replace \<command\> with any command you know. Not all commands will work with the -h option, but most basic unix commands will work with man. The man (short for manual) command will bring up the documentation (also called the man page) for the command. Very useful if you ever forget what a commmand is suposed to do or the options to that command.
 
 # grep and the Power of Regular Expressions.
@@ -45,6 +45,115 @@ Often we find ourselves in the unenviable position of needing to search large bo
 grep
 ```
 
-grep (short for **g**lobally search for a **r**egular **e**xpression and **p**rint matching lines) acts like the find function in many programs. You provide it some text and it will search a file for that text and return matching results. However unlike the find functions you may be used to grep can take and understand *regular expressions*
+grep (short for **g**lobally search for a **r**egular **e**xpression and **p**rint matching lines) acts like the find function in many programs. You provide it some text and it will search a file for that text and return matching results. Let's give it a try now. I have in the data directory a text file containing a list of different words (conviently called ```list.txt```:
+
+```
+apple
+Apple
+orange
+pear
+peach
+peach
+spam
+foo
+bar
+```
+if we run the following command:
+```
+grep 'apple' data/list.txt
+```
+We should see this output:
+```
+apple
+```
+As you can see we can do a simple word search using grep just like we can in other programs. Let's breakdown the command: grep is obviously the name of the command. The second argument is the PATTERN. This can be a word (or regular expression we will get to those a bit later) and this is the bit of text you want your search to find. The second argument is the path to the file you want to search. In this case it is data/list.txt.  
+
+You may have noticed: there are two instances of the word 'apple': 'apple' and 'Apple', but we only got one returned to us. This is because the patterns grep takes are by default case sensitive. Let's take a look at the man page for grep using the following command:
+
+```
+man grep
+```
+
+Output:
+```
+GREP(1)                           User Commands                           GREP(1)
+
+NAME
+       grep, egrep, fgrep, rgrep - print lines matching a pattern
+
+SYNOPSIS
+       grep [OPTIONS] PATTERN [FILE...]
+       grep [OPTIONS] -e PATTERN ... [FILE...]
+       grep [OPTIONS] -f FILE ... [FILE...]
+
+DESCRIPTION
+       grep searches for PATTERN in each FILE.  A FILE of “-” stands for standard
+       input.  If no FILE  is  given,  recursive  searches  examine  the  working
+       directory,  and  nonrecursive  searches  read standard input.  By default,
+       grep prints the matching lines.
+
+       In addition, the variant programs egrep, fgrep and rgrep are the  same  as
+       grep -E,   grep -F,   and   grep -r,  respectively.   These  variants  are
+       deprecated, but are provided for backward compatibility.
+
+OPTIONS
+   Generic Program Information
+       --help Output a usage message and exit.
+
+       -V, --version
+              Output the version number of grep and exit.
+
+   Matcher Selection
+       -E, --extended-regexp
+              Interpret PATTERN as  an  extended  regular  expression  (ERE,  see
+              below).
+
+       -F, --fixed-strings
+              Interpret  PATTERN  as  a list of fixed strings (instead of regular
+              expressions), separated by newlines, any of which is to be matched.
+
+       -G, --basic-regexp
+              Interpret PATTERN as a basic regular expression (BRE,  see  below).
+              This is the default.
+
+       -P, --perl-regexp
+              Interpret  the  pattern  as  a  Perl-compatible  regular expression
+              (PCRE).  This is experimental and grep -P may warn of unimplemented
+              features.
+
+   Matching Control
+       -e PATTERN, --regexp=PATTERN
+              Use  PATTERN as the pattern.  If this option is used multiple times
+              or is combined with the -f (--file) option, search for all patterns
+              given.  This option can be used to protect a pattern beginning with
+              “-”.
+
+       -f FILE, --file=FILE
+              Obtain patterns from FILE, one per line.  If this  option  is  used
+              multiple times or is combined with the -e (--regexp) option, search
+              for all patterns given.  The empty file contains zero patterns, and
+              therefore matches nothing.
+
+       -i, --ignore-case
+              Ignore  case  distinctions,  so that characters that differ only in
+              case match each other.
+
+       -v, --invert-match
+              Invert the sense of matching, to select non-matching lines.
+...
+```
+ I have omitted some of the output to save some space. But we can see there is a -i option that is for ignoring case. Let's give it a go:
+ 
+ ```
+ grep -i 'apple' data/list.txt
+ ```
+ The output should look like:
+ ```
+ apple
+ Apple
+ ```
+ 
+ 
+However unlike the find functions you may be used to grep can take and understand *regular expressions*
 ## So what are these regular expressions you keep going on about?
-Regular expressions are patterns
+Regular expressions are patterns of text. 
