@@ -22,12 +22,20 @@ rm -r \<directory\> | Permenatly deletes a directory.
 cat \<file\> | Prints contents of file to screen.
 less \<file\> | Opens file for viewing in the less interface.
 more \<file\> | Opens file for viewing in the more interface.
+head -n \<file\> | print top n lines of a file.
+tail -n \<file\> | print last n lines of a file.
 
 Commands can take multiple options as well as arguments take the rm command. See that "-r" in the rm command on line 4 of the table? That is an option. It means to perform the the remove command on all the files in \<directory\>. Options always follow 1 or 2 "-" characters in the command. You can always see a list of options for a given command by entering:
 
-\<command\> -h
+man \<command\>
 
 or
 
-man \<command\>
+\<command\> -h
+
+Where you can replace \<command\> with any command you know. Not all commands will work with the -h option, but most basic unix commands will work with man. The man (short for manual) command will bring up the documentation (also called the man page) for the command. Very useful if you ever forget what a commmand is suposed to do or the options to that command.
+
+#Grep and the Power of Regular Expressions.
+![xkcd208](Images/xkcd208.png)
+*Copyright Randal Monroe(https://xkcd.com/208/)*
 
