@@ -10,4 +10,14 @@ Linux/Unix has become the standard operating system for high performance computi
 ![No GUI No Problem](Images/NoGUINoProblem.png)
 *No GUI No Problem :sunglasses:*
 
+# Some Review
+By now you probably know enough Unix to be dangerous. Congratulations! It wont hurt to reveiw some fundamentals though:
+
+Command | Description
+--------|-------------
+ls \<directory\> | Lists all files in the current directory. If used without an argument lists files in current directory.
+cd \<directory\> | Changes to a directory.
+rm \<file\> | Permenatly deletes a file.
+rm -r \<directory\> | Permenatly deletes a directory.
+cat \<file\> | prints contents of file to screen.
 
