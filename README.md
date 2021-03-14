@@ -24,6 +24,10 @@ less \<file\> | Opens file for viewing in the less interface.
 more \<file\> | Opens file for viewing in the more interface.
 
 Commands can take multiple options as well as arguments take the rm command. See that "-r" in the rm command on line 4 of the table? That is an option. It means to perform the the remove command on all the files in \<directory\>. Options always follow 1 or 2 "-" characters in the command. You can always see a list of options for a given command by entering:
-'''\<command\> -h'''
+'''
+\<command\> -h
+'''
 or
-'''man \<command\>''' 
+'''
+man \<command\>
+''' 
