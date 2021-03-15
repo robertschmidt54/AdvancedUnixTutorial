@@ -204,18 +204,22 @@ Apple
 ```
 All words with the characters 'pp' anwhere in the word. Go ahead and give it a try using other combinations of letters. What happens if you enter a pattern that isn't in the file?
 
-Regular expressions also have special characters (we saw it earlier with my '^p' example). These special characters are summarized in the following table:
+Regular expressions also have special characters (we saw it earlier with my '^p' example). Some of these special characters are summarized in the following table:
 
 Character | Regular Expression Meaning | Example
 ----------|---------------------------|---------
 \. | Any character except line breaks. | 'c\.t' match any three letter word beginning with c and ending with t.
+^ | Match at the start of the line. | '^p' will match any line that starts with the letter p. Note: this must go at the beginning of the regular expression.
+$ | Match at the end of the line. | 'Bob$' will match any line that ends with the letters Bob in that order. Note: this must go at the end of the regular expression.
 \d | any digit 0 to 9  | \d\d will match any 2 digit number.
 \s | any whitespace character. | '.\sBob' will match any letter, followed by a single space and the letters Bob
 \D | any non digit character. | '\d\d\D\d\d' will match any 4 digits seperated by a non digit like '12A34'
 \S | any non whitespace character. | 'a\Sb' will match the letters a, and b seperated by a non white space character. 
 \+ | match one or more of previous character. |'a+' will find words that have one or more 'a' in them. 
 \* | match zero or more of previous character. | 'This.\*Rocks' will match the words This and Rocks seperated by any number of characters.
-{..} | can be used to specify number of matches | p{3} will match words with exactly 3 p's.
+{...} | can be used to specify number of matches | p{3} will match words with exactly 3 p's.
+(...) | specify a group of characters to match. | A(nt|pple) will match Ant or Apple. This differs from [...] in that [...] matches individual characters while (...) matches groups of characters.
 [...] | match one of the characters in the brackets. | [bc]at will match cat and bat.
 [^...] | match a charcter NOT in the bracket. | [^e] will give words that do not contain the letter e.
-\| | acts like an OR operand | 22|33 will match the string '22' or '33'
+\| | acts like an OR operand | 22\|33 will match the string '22' or '33'
+\- | allows us to specify a range | 'p{3-5}' will match words with 3, 4, or 5 p's. Works with letters too a[a-z]g will match any three letter word starting with a and ending with g.
