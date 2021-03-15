@@ -35,6 +35,8 @@ or
 ```
 Where you can replace \<command\> with any command you know. Not all commands will work with the -h option, but most basic unix commands will work with man. The man (short for manual) command will bring up the documentation (also called the man page) for the command. Very useful if you ever forget what a commmand is suposed to do or the options to that command.
 
+I should remind you: **rm -r can be a very dangerous command** Always be sure you are using it properly. 
+
 # grep and the Power of Regular Expressions.
 ![xkcd208](Images/xkcd208.png)
 
@@ -57,6 +59,10 @@ peach
 spam
 foo
 bar
+paypa
+dog
+Cat
+
 ```
 if we run the following command:
 ```
@@ -154,6 +160,62 @@ OPTIONS
  ```
  
  
-However unlike the find functions you may be used to grep can take and understand *regular expressions*
+Searching for particular words is great and all, but the true power of grep comes from its use of *regular expressions*
 ## So what are these regular expressions you keep going on about?
-Regular expressions are patterns of text. 
+Regular expressions are a way to encode patterns of text. So instead of searching for actual words we search for patterns in the words. For example say we want to find all words in our list.txt file that start with the letter p. One way to do this is with the command:
+
+```
+grep '^p' data/list.txt
+```
+Don't worry if you don't know what '^p' means yet we will get to that. The output will be:
+
+```
+pear
+peach
+peach
+papya
+```
+All the lines that start with the letter p.
+
+There are a few rules to keep in mind when forming regular expression. The first is that any alpha numeric character (the letters a-z and numbers 0-9) will be interpreted literally. So for example the following command:
+```
+grep 'p' data/list.txt
+```
+
+Will return:
+
+```
+apple
+Apple
+pear
+peach
+peach
+spam
+```
+these are the words that have a the letter 'p' *anywhere* in the word.  We can alter it easily:
+
+```
+grep 'pp' data/list.txt
+```
+will return:
+```
+apple
+Apple
+```
+All words with the characters 'pp' anwhere in the word. Go ahead and give it a try using other combinations of letters. What happens if you enter a pattern that isn't in the file?
+
+Regular expressions also have special characters (we saw it earlier with my '^p' example). These special characters are summarized in the following table:
+
+Character | Regular Expression Meaning | Example
+----------|---------------------------|---------
+. | Any character except line breaks. | 'c.t' match any three letter word beginning with c and ending with t.
+\d | any digit 0 to 9  | \d\d will match any 2 digit number.
+\s | any whitespace character. | '.\sBob' will match any letter, followed by a single space and the letters Bob
+\D | any non digit character. | '\d\d\D\d\d' will match any 4 digits seperated by a non digit like '12A34'
+\S | any non whitespace character. | 'a\Sb' will match the letters a, and b seperated by a non white space character. 
++ | match one or more of previous character. |'a+' will find words that have one or more 'a' in them. 
+\* | match zero or more of previous character. | 'This.\*Rocks' will match the words This and Rocks seperated by any number of characters.
+{..} | can be used to specify number of matches | p{3} will match words with exactly 3 p's.
+[...] | match one of the characters in the brackets. | [bc]at will match cat and bat.
+[^...] | match a charcter NOT in the bracket. | [^e] will give words that do not contain the letter e.
+\| | acts like an OR operand | 22|33 will match the string '22' or '33'
