@@ -258,3 +258,30 @@ The N's represent any nucleotide A, T, C, or G. Using what we know about regular
 
 ## Naive gene finding
 One way to find potential genes is to look for sequences that start with the letters ATG, followed by any number of characters, then end with either TAG, TGA, or TAA. Using grep and regular expressions as well as you knowledge of other commands: how many genes could there be in *A. baumannii*?
+
+# Introduction to Programming with Unix
+We have learned how to run commands in Unix one at a time via the commandline. However, most of the time we would like to run multiple commands in sequence. You will have learned during the last workshop about the pipe ```|``` operator that allows us to chain commands together. This is useful, but will quickly becomes combersome when you have more than a handfull of commands you need to run on multiple files. Enter bash scripting!
+
+Bash scripting is just like any programming language out there. We write a series of instructions that the computer will excute line by line. To do this I will need to introduce one more command to you: ```vim```. Vim is a text editor, just like Notepad on Windows, or TextEdit on Mac, just accessed through the commandline rather than clicking on an icon. When you enter the following command:
+
+```
+vim helloWorld.sh
+```
+Your screen will shift to something like this:
+![VimSample1](Images/vimExample1.png)
+You will notice that you will be unable to type anything. This is because Vim has 2 modes: a "normal" mode that you can enter commands to vim to get it to do things like go to certian lines, save your work, or quit, and an editing mode. To enter the editing mode just press ```i``` and you should notice the word INSERT appear at the bottom of your screen like so:
+![Vim Example 2](Images/vimExample2.png)
+You can now type to your hearts content. Let's enter the following:
+```{bash}
+#!bin/bash
+echo "Hello World!"
+```
+Once you've typed that hit ```ESC``` to return to normal mode. To quit and save your work type ```:``` (shift + ;) then type ```wq``` to write what you typed to your file and quit. To run your program type:
+```
+bash helloWorld.sh
+```
+Which should print:
+```
+Hello World!
+```
+Congratulations you've just written your first program!
