@@ -223,3 +223,35 @@ $ | Match at the end of the line. | 'Bob$' will match any line that ends with th
 [^...] | match a charcter NOT in the bracket. | [^e] will give words that do not contain the letter e.
 \| | acts like an OR operand | 22\|33 will match the string '22' or '33'
 \- | allows us to specify a range | 'p{3-5}' will match words with 3, 4, or 5 p's. Works with letters too a[a-z]g will match any three letter word starting with a and ending with g.
+
+These are just a few of the special characters but these will let us do a lot. Let's breakdown my expression from earlier '^p' according to the table the '^' character means start of the line and the p is the character that should start the line. So since our list.txt file contains only one word per line this is equilivent to "find words that begin with the letter p". This would not work in general though.
+
+One other thing we should take note of is: most of these special characters will not work with just regular grep. A quick look at the man page reveals this option:
+
+```
+       -E, --extended-regexp
+              Interpret PATTERN as  an  extended  regular  expression  (ERE,  see
+              below).
+              ...
+                 Basic vs Extended Regular Expressions
+       In basic regular expressions the meta-characters ?, +, {, |, (, and ) lose their special meaning; instead  use
+       the backslashed versions \?, \+, \{, \|, \(, and \).
+ 
+```
+
+Meaning we either need the -E option or remember to put backslashes infront of these special characters. The following two commands are equilivent:
+
+```
+grep -E 'A(nt|pple)' data/list.txt
+
+grep 'A\(nt\|pple\)' data/list.txt
+```
+
+## Example of using Regular Expressions in bioinformatics: Restriction Enzyme sites.
+To try to tie these principles into biology let's take a look at using regular expressions and grep to locate and count restriction enzyme sites in a bacterial genome. Restriction enzymes are enzymes that cut DNA at very specific sequences. *Acinetobacter baumannii* is an opportunstic pathogen and a bacteria I used to work with as an undergrad. I have downloaded its entire genome from NCBI and placed it into the data folder with the file name ```AbaumanniiGenome.fasta```. 
+
+EcoN1 is a restriction enzyme that cuts the following sequence:
+```
+CCTNNNNNAGG
+```
+The N's represent any nucleotide A, T, C, or G. Using what we know about regular expressions and other commands how many EcoN1 sites are there in the *A. baumannii* genome?
