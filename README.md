@@ -246,7 +246,7 @@ grep -E 'A(nt|pple)' data/list.txt
 
 grep 'A\(nt\|pple\)' data/list.txt
 ```
-
+# Regular Expression Practice Problems
 ## Example of using Regular Expressions in bioinformatics: Restriction Enzyme sites.
 To try to tie these principles into biology let's take a look at using regular expressions and grep to locate and count restriction enzyme sites in a bacterial genome. Restriction enzymes are enzymes that cut DNA at very specific sequences. *Acinetobacter baumannii* is an opportunstic pathogen and a bacteria I used to work with as an undergrad. I have downloaded its entire genome from NCBI and placed it into the data folder with the file name ```AbaumanniiGenome.fasta```. 
 
@@ -257,4 +257,4 @@ CCTNNNNNAGG
 The N's represent any nucleotide A, T, C, or G. Using what we know about regular expressions and other commands how many EcoN1 sites are there in the *A. baumannii* genome?
 
 ## Naive gene finding
-One way to find potential genes is to look for sequences that start with the letters ATG, have any number of characters between them, then end with either TAG, TGA, or TAA. Using grep and regular expressions as well as you knowledge of other commands: how many genes could there by in *A. baumannii*?
+One way to find potential genes is to look for sequences that start with the letters ATG, followed by any number of characters, then end with either TAG, TGA, or TAA. Using grep and regular expressions as well as you knowledge of other commands: how many genes could there be in *A. baumannii*?
