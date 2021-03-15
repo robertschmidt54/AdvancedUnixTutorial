@@ -208,7 +208,7 @@ Regular expressions also have special characters (we saw it earlier with my '^p'
 
 Character | Regular Expression Meaning | Example
 ----------|---------------------------|---------
-. | Any character except line breaks. | 'c.t' match any three letter word beginning with c and ending with t.
+\. | Any character except line breaks. | 'c\.t' match any three letter word beginning with c and ending with t.
 \d | any digit 0 to 9  | \d\d will match any 2 digit number.
 \s | any whitespace character. | '.\sBob' will match any letter, followed by a single space and the letters Bob
 \D | any non digit character. | '\d\d\D\d\d' will match any 4 digits seperated by a non digit like '12A34'
