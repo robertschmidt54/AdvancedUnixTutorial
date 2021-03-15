@@ -218,7 +218,7 @@ $ | Match at the end of the line. | 'Bob$' will match any line that ends with th
 \+ | match one or more of previous character. |'a+' will find words that have one or more 'a' in them. 
 \* | match zero or more of previous character. | 'This.\*Rocks' will match the words This and Rocks seperated by any number of characters.
 {...} | can be used to specify number of matches | p{3} will match words with exactly 3 p's.
-(...) | specify a group of characters to match. | A(nt|pple) will match Ant or Apple. This differs from [...] in that [...] matches individual characters while (...) matches groups of characters.
+(...) | specify a group of characters to match. | A(nt\|pple) will match Ant or Apple. This differs from [...] in that [...] matches individual characters while (...) matches groups of characters.
 [...] | match one of the characters in the brackets. | [bc]at will match cat and bat.
 [^...] | match a charcter NOT in the bracket. | [^e] will give words that do not contain the letter e.
 \| | acts like an OR operand | 22\|33 will match the string '22' or '33'
