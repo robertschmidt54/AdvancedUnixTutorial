@@ -255,3 +255,6 @@ EcoN1 is a restriction enzyme that cuts the following sequence:
 CCTNNNNNAGG
 ```
 The N's represent any nucleotide A, T, C, or G. Using what we know about regular expressions and other commands how many EcoN1 sites are there in the *A. baumannii* genome?
+
+## Naive gene finding
+One way to find potential genes is to look for sequences that start with the letters ATG, have any number of characters between them, then end with either TAG, TGA, or TAA. Using grep and regular expressions as well as you knowledge of other commands: how many genes could there by in *A. baumannii*?
