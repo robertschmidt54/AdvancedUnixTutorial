@@ -213,7 +213,7 @@ Character | Regular Expression Meaning | Example
 \s | any whitespace character. | '.\sBob' will match any letter, followed by a single space and the letters Bob
 \D | any non digit character. | '\d\d\D\d\d' will match any 4 digits seperated by a non digit like '12A34'
 \S | any non whitespace character. | 'a\Sb' will match the letters a, and b seperated by a non white space character. 
-+ | match one or more of previous character. |'a+' will find words that have one or more 'a' in them. 
+\+ | match one or more of previous character. |'a+' will find words that have one or more 'a' in them. 
 \* | match zero or more of previous character. | 'This.\*Rocks' will match the words This and Rocks seperated by any number of characters.
 {..} | can be used to specify number of matches | p{3} will match words with exactly 3 p's.
 [...] | match one of the characters in the brackets. | [bc]at will match cat and bat.
