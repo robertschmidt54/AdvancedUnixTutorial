@@ -309,6 +309,9 @@ Here we see an example of declaring a variable. Variables can store values to be
 
 The power of bash sripting comes from being able to run multiple things in sequence and controlling that sequence. In the next section we will look at some of the control options. These are universal to most programming languages so once you've seen them here you will have seen them all.
 
+## Running through a list: The for loop:
+There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. 
+
 ## Controling when something happens: IF statements:
 
 
