@@ -310,7 +310,31 @@ Here we see an example of declaring a variable. Variables can store values to be
 The power of bash sripting comes from being able to run multiple things in sequence and controlling that sequence. In the next section we will look at some of the control options. These are universal to most programming languages so once you've seen them here you will have seen them all.
 
 ## Running through a list: The for loop:
-There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. 
+There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
+![ForLoop](Images/forLoop.png)
+I think it is best illistrated with an example:
+
+```
+for i in 1 2 3 4 5 6 7 8 9 10
+do
+       echo $i
+done
+```
+
+which will produce:
+```
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+We just printed the numbers 1 to 10 with out needing 10 seperate echo statements! So what's going on here? Let's breakdown the first line: ```for x in 1 2 3 4 5 6...``` The word for is a key word in Unix that means I am starting a for loop. i is a variable (it could be anything I just chose but you can give it any name you want like variable or bob), and the stuff after the word "in" are the values I want i to take on. i starts by taking on the 
 
 ## Controling when something happens: IF statements:
 
