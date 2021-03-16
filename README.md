@@ -305,4 +305,10 @@ Hello World!
 X = 42
 ```
 
-Here we see an example of declaring a variable. Variables can store values to be used later. In this case we define a variable ```x``` to be the number ```42```. We then print the variable to the screen using the echo command. Notice how we have to call the variable as ```$x```. This is true of every variable in bash scripting. You need that $. 
+Here we see an example of declaring a variable. Variables can store values to be used later. They can be numeric or strings. In this case we define a variable ```x``` to be the number ```42```. We then print the variable to the screen using the echo command. Notice how we have to call the variable as ```$x```. This is true of every variable in bash scripting. You need that $. With these basics you can do a lot of cool things.
+
+The power of bash sripting comes from being able to run multiple things in sequence and controlling that sequence. In the next section we will look at some of the control options. These are universal to most programming languages so once you've seen them here you will have seen them all.
+
+## Controling when something happens: IF statements:
+
+
