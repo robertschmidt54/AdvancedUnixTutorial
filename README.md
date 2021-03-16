@@ -2,7 +2,7 @@
 ### Rob Schmidt
 Tutorial for workshop given on 3/20/21
 
-This is the second in a series of tutorials for the Bioinformatics and Computational Biology workshop series on Unix. In this tutorial we will cover some more advanced Unix topics and run through a quick RNA Seq alignment and count using real (but reduced) data. 
+This is the second in a series of tutorials for the Bioinformatics and Computational Biology workshop series on Unix. In this tutorial we will cover some more advanced Unix topics. 
 
 # Let's get started: Why do we even want to learn about Unix?
 Linux/Unix has become the standard operating system for high performance computing clusters (HPCs) all around the globe. If you want the power of an HPC you need to learn the fundamentals of Unix. Plus almost all of the most popular bioinformatics tools are used on the commandline. Trust me it may look intimidating at first, but I hope you are finding it is not as hard as you may have thought.
@@ -285,3 +285,24 @@ Which should print:
 Hello World!
 ```
 Congratulations you've just written your first program!
+
+Let's take some time to break down what we just did. The first line: ```#!bin/bash``` is required at the beginning of every bash script. It tells the computer what program to use to interpret our instructions. 
+
+You have already seen the ```echo``` command from the last workshop. As a reminder echo prints what ever follows it to the screen. In our case it will be the string "Hello World!".
+
+Let's try something a little more complicated open up your helloWorld.sh script and add the following:
+
+```{bash}
+x=42
+
+echo "X = "$x
+```
+Go ahead and save that then run it the output will now be:
+
+```
+Hello World!
+
+X = 42
+```
+
+Here we see an example of declaring a variable. Variables can store values to be used later. In this case we define a variable ```x``` to be the number ```42```. We then print the variable to the screen using the echo command. Notice how we have to call the variable as ```$x```. This is true of every variable in bash scripting. You need that $. 
