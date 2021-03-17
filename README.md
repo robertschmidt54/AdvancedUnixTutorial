@@ -339,5 +339,7 @@ We just printed the numbers 1 to 10 with out needing 10 seperate echo statements
 When we start the loop ```i``` first takes on the value 1 since it is the first in the list. We then move to the instruction which is to print whatever the value of ```i``` is. When that is done, we find there is no other instruction. We have just completed one itteration of the loop. We then go back to our list, and see if we have reached the end. We have not, so ```i``` will now be assigned the value 2 (the next value in the list). We then repeate  the loop until ```i``` can no longer take on anymore values. Once we reach that point we are done, and exit the loop. 
 
 ## Controling when something happens: IF statements:
+![if flow](Images/if.png)
+Other times we want to wait to do something until something else happens. To accomplish this we use an ```if``` statement. If satements will not trigger until their condition is met. In bash script an if statement looks like:
 
-
+```
