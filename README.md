@@ -343,3 +343,50 @@ When we start the loop ```i``` first takes on the value 1 since it is the first 
 Other times we want to wait to do something until something else happens. To accomplish this we use an ```if``` statement. If satements will not trigger until their condition is met. In bash script an if statement looks like:
 
 ```
+if [CONDITION]
+then
+       STATEMENT
+fi
+```
+
+When CONDITION is true STATEMENT will be run. If CONDITION is false we will skip STATEMENT. Let's see how this works with a little bash script:
+
+```
+#!/bin/bash
+
+echo -n "Enter a number:"
+read N
+
+if [[ $N -gt 10 ]]
+then
+       echo $N" is greater than 10"
+fi
+```
+
+Here we are using a new command ```read``` read will halt a program and wait for user input. You can enter any interger here, but if it larger than 10 we expect the following output:
+
+```
+N is greater than 10
+```
+where N is the number you entered. 
+Let's break this down. What is between the two square brakets is the CONDITION. In this case we are testing our variable N against the number 10. We want to see if N > 10 (that's what the -gt is for). There are a bunch of commands the most common of which are summarized in this table:
+
+Operator | Description
+---------|------------
+! EXPRESSION | Negates EXPRESSION.
+-n STRING | Checks if length of STRING is greater than zero.
+-z STRING | Checks if length of STRING is zero.
+STRING1 = STRING2 | STRING1 is equal to STRING2
+STRING1 != STRING2 | STRING1 is not equal to STRING2
+INTEGER1 -eq INTEGER2 | INTEGER1 is numerically equal to INTEGER2
+INTEGER1 -gt INTEGER2 | INTEGER1 is numerically greater than INTEGER2
+INTEGER1 -lt INTEGER2 | INTEGER1 is less than INTEGER2
+
+There are others, but these are the most useful.
+
+Something important to note is that if statements in bash are not as intuitive as they are in other programming languagles like Python or Perl. From the table above we see the > and < symbols are not used they are instead replaced with -gt and -lt. This can cause some confusion so be sure you get the syntax right.
+
+## Finally Some Biology
+I thought I would end this tutorial on a more biological note. RNA Sequencing has become a routine procedure in many labs and it is likely your PI may have handed you a bunch of files and told you to get craking. This tutorial is not going to focus on *how* to analyze RNA-Seq data. Rather I wanted to take you from raw data to a count matrix you can use in your own data analysis. 
+
+RNA-Sequencing experiments begin in the wet lab with purifying RNA from an organism then sequencing that RNA (probably why it's called RNA sequencing. I love it when names make sense). We will come in after this sequencing step. Once the RNA has been sequenced you will recieve a bunch of (pretty large) files in a format called ```fastq``.  
