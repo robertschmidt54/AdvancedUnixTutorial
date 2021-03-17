@@ -389,4 +389,26 @@ Something important to note is that if statements in bash are not as intuitive a
 ## Finally Some Biology
 I thought I would end this tutorial on a more biological note. RNA Sequencing has become a routine procedure in many labs and it is likely your PI may have handed you a bunch of files and told you to get craking. This tutorial is not going to focus on *how* to analyze RNA-Seq data. Rather I wanted to take you from raw data to a count matrix you can use in your own data analysis. 
 
-RNA-Sequencing experiments begin in the wet lab with purifying RNA from an organism then sequencing that RNA (probably why it's called RNA sequencing. I love it when names make sense). We will come in after this sequencing step. Once the RNA has been sequenced you will recieve a bunch of (pretty large) files in a format called ```fastq``.  
+RNA-Sequencing experiments begin in the wet lab with purifying RNA from an organism then sequencing that RNA (probably why it's called RNA sequencing. I love it when names make sense). We will come in after this sequencing step. Once the RNA has been sequenced you will recieve a bunch of (pretty large) files in a format called ```fastq```. Fastq files look like this:
+
+```
+@A00810:21:HFL2MDRXX:1:2101:24388:1016 1:N:0:ACACAGGTAT+ATGTTCGTTC
+CNCGGAAAGTATTCCGTGGAGGGCTCCGCCGAGAGCGAGCTGCTTCGACAGGTCGAGG
++
+F#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+@A00810:21:HFL2MDRXX:1:2101:29559:1016 1:N:0:ACACAGGTAT+ATGTTCGTTC
+GNTATCTTTACAGGTTAAGTCTGGTGAGAATATCTCTTAAGGGAAGATTTTCAATCTCTTCTTTCCCCATTTTACGGGTGTTTCTTCTTGATTGCCTCGTT
++
+F#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+@A00810:21:HFL2MDRXX:1:2101:29613:1016 1:N:0:ACACAGGTAT+ATGTTCGTTC
+ANTGAACGCCGTACTCCGCCAACGCCGCCGTGACCGTCTCCGGCGACAGCCGCTCCGTTCCCACCACCTCCACCTGCCATACAAAGCTGCTCATGACCAGC
++
+F#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+@A00810:21:HFL2MDRXX:1:2101:13856:1031 1:N:0:ACACAGGTAT+ATGTTCGTTC
+CNGATGGAAAGCGAGGAGTGAAGACCAAGGTTGAGCCGACGCTGCAGGAAGCTCCGGGCGTTTATAACGATACGATTCTTGCCGGTCTCGACTATCTGCT
++
+F#FFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+```
+Each sequence is split over 4 lines. The first line beginning with ```@``` is the sequence identifier. The second line is the actual sequence, the third line is a ```+``` idnicating the start of the quality calls, and the fourth line are the quality calls for this sequence. 
+
+I have in the data directory two fastq files taken from WT *Acinetobacter baumannii* ATCC 17978 treated with and without polymyxin B. (GEO accession: [GSE163581!](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE163581)) 
