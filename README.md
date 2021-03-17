@@ -18,12 +18,16 @@ Command | Description
 ls \<directory\> | Lists all files in the current directory. If used without an argument lists files in current directory.
 cd \<directory\> | Changes to a directory.
 rm \<file\> | Permenatly deletes a file.
-rm -r \<directory\> | Permenatly deletes a directory.
+rm -r \<directory\> | Permenatly deletes a directory. **Be very careful with rm. Always be absolutely sure you know what you are deleting.**
 cat \<file\> | Prints contents of file to screen.
 less \<file\> | Opens file for viewing in the less interface.
 more \<file\> | Opens file for viewing in the more interface.
 head -n \<file\> | print top n lines of a file.
 tail -n \<file\> | print last n lines of a file.
+cp \<file\> \<new location\> | copies file to new location. Keeps old file.
+mv \<file\> \<new location\> | moves file to new location. Deletes old file. Also can be used to rename files.
+pwd | prints out current working directory.
+mkdir \<directory\> | make new directory.
 
 Commands can take multiple options as well as arguments take the rm command. See that "-r" in the rm command on line 4 of the table? That is an option. It means to perform the the remove command on all the files in \<directory\>. Options always follow 1 or 2 "-" characters in the command. You can always see a list of options for a given command by entering:
 ```
