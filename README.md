@@ -411,4 +411,4 @@ F#FFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 ```
 Each sequence is split over 4 lines. The first line beginning with ```@``` is the sequence identifier. The second line is the actual sequence, the third line is a ```+``` idnicating the start of the quality calls, and the fourth line are the quality calls for this sequence. 
 
-I have in the data directory two fastq files taken from WT *Acinetobacter baumannii* ATCC 17978 treated with and without polymyxin B. (GEO accession: [GSE163581!](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE163581)) 
+I have in the data directory two fastq files taken from WT *Acinetobacter baumannii* ATCC 17978 treated with and without polymyxin B. (GEO accession: [GSE163581](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE163581)). I subsampled the files down from the orginal 23 million reads to a more manageable 100k reads per sample. This was done only to speed up the processing.  
