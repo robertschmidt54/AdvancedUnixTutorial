@@ -4,6 +4,12 @@ Tutorial for workshop given on 3/20/21
 
 This is the second in a series of tutorials for the Bioinformatics and Computational Biology workshop series on Unix. In this tutorial we will cover some more advanced Unix topics. 
 
+
+```
+ssh <netID>@hpc-class.its.iastate.edu
+```
+# Installation
+< add installation of putty and winscp instructions >
 # Let's get started: Why do we even want to learn about Unix?
 Linux/Unix has become the standard operating system for high performance computing clusters (HPCs) all around the globe. If you want the power of an HPC you need to learn the fundamentals of Unix. Plus almost all of the most popular bioinformatics tools are used on the commandline. Trust me it may look intimidating at first, but I hope you are finding it is not as hard as you may have thought.
 
@@ -28,8 +34,14 @@ cp \<file\> \<new location\> | copies file to new location. Keeps old file.
 mv \<file\> \<new location\> | moves file to new location. Deletes old file. Also can be used to rename files.
 pwd | prints out current working directory.
 mkdir \<directory\> | make new directory.
+touch \<file\> | make a new file.
 
-Commands can take multiple options as well as arguments take the rm command. See that "-r" in the rm command on line 4 of the table? That is an option. It means to perform the the remove command on all the files in \<directory\>. Options always follow 1 or 2 "-" characters in the command. You can always see a list of options for a given command by entering:
+Commands can take multiple flags/options as well as arguments take the rm command. Options always follow 1 or 2 "-" characters in the command.
+ex:
+```ls -lh``` lists all files in directory and their sizes
+```head -n 5 \<file\>``` prints first 5 lines of a file.
+
+You can always see a list of options for a given command by entering:
 ```
 man \<command\>
 ```
@@ -39,7 +51,95 @@ or
 ```
 Where you can replace \<command\> with any command you know. Not all commands will work with the -h option, but most basic unix commands will work with man. The man (short for manual) command will bring up the documentation (also called the man page) for the command. Very useful if you ever forget what a commmand is suposed to do or the options to that command.
 
-I should remind you: **rm -r can be a very dangerous command** Always be sure you are using it properly. 
+I should remind you: **rm -r can be a very dangerous command** Always be sure you are using it properly. **NEVER USE THE COMMAND: rm -rf /**
+
+
+
+# Introduction to Programming with Unix
+We have learned how to run commands in Unix one at a time via the commandline. However, most of the time we would like to run multiple commands in sequence. 
+
+You learned during the last workshop about the pipe ```|``` operator that allows us to chain commands together. This is useful, but will quickly becomes combersome when you have more than a handfull of commands you need to run on multiple files. Enter bash scripting!
+
+Programming in bash is just like programming in other languages. So the skills you pick up here can easily transfer to other languages as well.
+
+In order to write our programs I will need to introduce a new command ```nano``` nano is one Unix's built in text editors (other text editors are aviable).
+
+To open a file with nano:
+```
+nano helloWorld.sh
+```
+Your screen will shift to something like this:
+![VimSample1](Images/nano1.png)
+You can type anything you want just like you can in Notepad or TextEdit. 
+Go ahead and type the following:
+```{bash}
+#!bin/bash
+echo "Hello World!"
+```
+Once you've typed that hit ```CTRL + X``` you will then be prompted to save your work. Type ```Y``` to save then hit ```Enter```` and you should be brought back to your normal bash shell.
+
+Let's run our program:
+```
+bash helloWorld.sh
+```
+Which should print:
+```
+Hello World!
+```
+Congratulations you've just written your first program!
+
+Let's take some time to break down what we just did. The first line: ```#!bin/bash``` is required at the beginning of every bash script. It tells the computer what program to use to interpret our instructions. 
+
+You have already seen the ```echo``` command from the last workshop. As a reminder echo prints what ever follows it to the screen. In our case it will be the string "Hello World!".
+
+Let's try something a little more complicated open up your helloWorld.sh script and add the following:
+
+```{bash}
+x=42
+
+echo "X = "$x
+```
+Go ahead and save that then run it the output will now be:
+
+```
+Hello World!
+
+X = 42
+```
+
+Here we see an example of declaring a variable. Variables can store values to be used later. They can be numeric or strings. In this case we define a variable ```x``` to be the number ```42```. We then print the variable to the screen using the echo command. Notice how we have to call the variable as ```$x```. This is true of every variable in bash scripting. You need that $. With these basics you can do a lot of cool things.
+
+The power of bash sripting comes from being able to run multiple things in sequence and controlling that sequence. In the next section we will look at some of the control options. These are universal to most programming languages so once you've seen them here you will have seen them all.
+
+## Running through a list: The for loop:
+There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
+![ForLoop](Images/forLoop.png)
+I think it is best illistrated with an example:
+
+```
+for i in 1 2 3 4 5 6 7 8 9 10
+do
+       echo $i
+done
+```
+
+which will produce:
+```
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+We just printed the numbers 1 to 10 with out needing 10 seperate echo statements! So what's going on here? Let's breakdown the first line: ```for x in 1 2 3 4 5 6...``` The word for is a key word in Unix that means I am starting a for loop. i is a variable (it could be anything I just chose but you can give it any name you want like variable or bob), and the stuff after the word "in" are the values I want i to take on. The next line is the word ```do``` this is another keyword in unix. It means that for every value of i do the following. The next line is my code that I want done. And finally we end with the word ```done``` to let the computer know we are finished. 
+
+When we start the loop ```i``` first takes on the value 1 since it is the first in the list. We then move to the instruction which is to print whatever the value of ```i``` is. When that is done, we find there is no other instruction. We have just completed one itteration of the loop. We then go back to our list, and see if we have reached the end. We have not, so ```i``` will now be assigned the value 2 (the next value in the list). We then repeate  the loop until ```i``` can no longer take on anymore values. Once we reach that point we are done, and exit the loop. 
+
 
 # grep and the Power of Regular Expressions.
 ![xkcd208](Images/xkcd208.png)
@@ -263,84 +363,6 @@ The N's represent any nucleotide A, T, C, or G. Using what we know about regular
 ## Naive gene finding
 One way to find potential genes is to look for sequences that start with the letters ATG, followed by any number of characters, then end with either TAG, TGA, or TAA. Using grep and regular expressions as well as you knowledge of other commands: how many genes could there be in *A. baumannii*?
 
-# Introduction to Programming with Unix
-We have learned how to run commands in Unix one at a time via the commandline. However, most of the time we would like to run multiple commands in sequence. You will have learned during the last workshop about the pipe ```|``` operator that allows us to chain commands together. This is useful, but will quickly becomes combersome when you have more than a handfull of commands you need to run on multiple files. Enter bash scripting!
-
-Bash scripting is just like any programming language out there. We write a series of instructions that the computer will excute line by line. To do this I will need to introduce one more command to you: ```vim```. Vim is a text editor, just like Notepad on Windows, or TextEdit on Mac, just accessed through the commandline rather than clicking on an icon. When you enter the following command:
-
-```
-vim helloWorld.sh
-```
-Your screen will shift to something like this:
-![VimSample1](Images/vimExample1.png)
-You will notice that you will be unable to type anything. This is because Vim has 2 modes: a "normal" mode that you can enter commands to vim to get it to do things like go to certian lines, save your work, or quit, and an editing mode. To enter the editing mode just press ```i``` and you should notice the word INSERT appear at the bottom of your screen like so:
-![Vim Example 2](Images/vimExample2.png)
-You can now type to your hearts content. Let's enter the following:
-```{bash}
-#!bin/bash
-echo "Hello World!"
-```
-Once you've typed that hit ```ESC``` to return to normal mode. To quit and save your work type ```:``` (shift + ;) then type ```wq``` to write what you typed to your file and quit. To run your program type:
-```
-bash helloWorld.sh
-```
-Which should print:
-```
-Hello World!
-```
-Congratulations you've just written your first program!
-
-Let's take some time to break down what we just did. The first line: ```#!bin/bash``` is required at the beginning of every bash script. It tells the computer what program to use to interpret our instructions. 
-
-You have already seen the ```echo``` command from the last workshop. As a reminder echo prints what ever follows it to the screen. In our case it will be the string "Hello World!".
-
-Let's try something a little more complicated open up your helloWorld.sh script and add the following:
-
-```{bash}
-x=42
-
-echo "X = "$x
-```
-Go ahead and save that then run it the output will now be:
-
-```
-Hello World!
-
-X = 42
-```
-
-Here we see an example of declaring a variable. Variables can store values to be used later. They can be numeric or strings. In this case we define a variable ```x``` to be the number ```42```. We then print the variable to the screen using the echo command. Notice how we have to call the variable as ```$x```. This is true of every variable in bash scripting. You need that $. With these basics you can do a lot of cool things.
-
-The power of bash sripting comes from being able to run multiple things in sequence and controlling that sequence. In the next section we will look at some of the control options. These are universal to most programming languages so once you've seen them here you will have seen them all.
-
-## Running through a list: The for loop:
-There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
-![ForLoop](Images/forLoop.png)
-I think it is best illistrated with an example:
-
-```
-for i in 1 2 3 4 5 6 7 8 9 10
-do
-       echo $i
-done
-```
-
-which will produce:
-```
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-```
-We just printed the numbers 1 to 10 with out needing 10 seperate echo statements! So what's going on here? Let's breakdown the first line: ```for x in 1 2 3 4 5 6...``` The word for is a key word in Unix that means I am starting a for loop. i is a variable (it could be anything I just chose but you can give it any name you want like variable or bob), and the stuff after the word "in" are the values I want i to take on. The next line is the word ```do``` this is another keyword in unix. It means that for every value of i do the following. The next line is my code that I want done. And finally we end with the word ```done``` to let the computer know we are finished. 
-
-When we start the loop ```i``` first takes on the value 1 since it is the first in the list. We then move to the instruction which is to print whatever the value of ```i``` is. When that is done, we find there is no other instruction. We have just completed one itteration of the loop. We then go back to our list, and see if we have reached the end. We have not, so ```i``` will now be assigned the value 2 (the next value in the list). We then repeate  the loop until ```i``` can no longer take on anymore values. Once we reach that point we are done, and exit the loop. 
 
 ## Controling when something happens: IF statements:
 ![if flow](Images/if.png)
