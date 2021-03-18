@@ -75,7 +75,12 @@ Go ahead and type the following:
 
 ```{bash}
 #!bin/bash
+
+#This is a comment!
+#This is also a comment.
 echo "Hello World!"
+
+#Another comment.
 ```
 Once you've typed that hit ```CTRL + X``` you will then be prompted to save your work. Type ```Y``` to save then hit ```Enter``` and you should be brought back to your normal bash shell.
 
@@ -93,24 +98,54 @@ Let's take some time to break down what we just did. The first line: ```#!bin/ba
 
 You have already seen the ```echo``` command from the last workshop. As a reminder echo prints what ever follows it to the screen. In our case it will be the string "Hello World!".
 
-Let's try something a little more complicated open up your helloWorld.sh script and add the following:
+You may have noticed the lines that begin with ```#``` didn't print or mess anything up. This is because they are what are known as comments. Comments are ignored by computers, and are for us humans to know what the code is doing.
+
+Let's try something a little more complicated open up your helloWorld.sh script and add the following to the end:
 
 ```{bash}
+#Set x to be the answer to life the universe and everything.
 x=42
 
-echo "X = "$x
+
+echo "The answer to life the universe and everything is: "$x
 ```
 Go ahead and save that then run it the output will now be:
 
 ```
 Hello World!
 
-X = 42
+The answer to life the universe and everything is: 42
 ```
 
-Here we see an example of declaring a variable. Variables can store values to be used later. They can be numeric or strings. In this case we define a variable ```x``` to be the number ```42```. We then print the variable to the screen using the echo command. Notice how we have to call the variable as ```$x```. This is true of every variable in bash scripting. You need that $. With these basics you can do a lot of cool things.
+Here we see an example of declaring a variable. Variables can store values to be used later. They can be numeric or strings. In this case we define a variable ```x``` to be the number ```42```. We then print the variable to the screen using the echo command. Notice how we have to call the variable as ```$x```. This is true of every variable in bash scripting. You need that $. 
+### Taking arguments from the command line.
 
-The power of bash sripting comes from being able to run multiple things in sequence and controlling that sequence. In the next section we will look at some of the control options. These are universal to most programming languages so once you've seen them here you will have seen them all.
+Let's modify our script to take an argument from the command line. Let's open a new file: 
+```
+nano myEcho.sh
+```
+
+We will add the following to it:
+```
+#!/bin/bash
+
+echo $1
+```
+Go on and save it. Then type:
+
+```
+bash myecho.sh "I want to print this string"
+```
+Congratulations you've just rewritten the echo command. But it illustrates a key feature of bash scripting: we can take in arguments from the command line and do things with them.
+
+Arguments coming in from the command line are stored in a hidden list we can access with the variables $1, $2, $3, etc. This is very useful if we want to run a tool on multiple files and we want to keep the same parameters. Here is an example using the aligner ```bowtie2```:
+
+```
+#!/bin/bash
+
+bowtie2 --sensitive -p 32 -x Index/AB -1 $1 -2 $2 -S $3
+```
+ If I save this to a script I can call it with my two input files and an outfile without having to type the command each time. Or better yet:
 
 ## Running through a list: The for loop:
 There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
@@ -141,6 +176,7 @@ We just printed the numbers 1 to 10 with out needing 10 seperate echo statements
 
 When we start the loop ```i``` first takes on the value 1 since it is the first in the list. We then move to the instruction which is to print whatever the value of ```i``` is. When that is done, we find there is no other instruction. We have just completed one itteration of the loop. We then go back to our list, and see if we have reached the end. We have not, so ```i``` will now be assigned the value 2 (the next value in the list). We then repeate  the loop until ```i``` can no longer take on anymore values. Once we reach that point we are done, and exit the loop. 
 
+# Slurm and the HPC.
 
 # grep and the Power of Regular Expressions.
 ![xkcd208](Images/xkcd208.png)
@@ -363,79 +399,3 @@ The N's represent any nucleotide A, T, C, or G. Using what we know about regular
 
 ## Naive gene finding
 One way to find potential genes is to look for sequences that start with the letters ATG, followed by any number of characters, then end with either TAG, TGA, or TAA. Using grep and regular expressions as well as you knowledge of other commands: how many genes could there be in *A. baumannii*?
-
-
-## Controling when something happens: IF statements:
-![if flow](Images/if.png)
-Other times we want to wait to do something until something else happens. To accomplish this we use an ```if``` statement. If satements will not trigger until their condition is met. In bash script an if statement looks like:
-
-```
-if [CONDITION]
-then
-       STATEMENT
-fi
-```
-
-When CONDITION is true STATEMENT will be run. If CONDITION is false we will skip STATEMENT. Let's see how this works with a little bash script:
-
-```
-#!/bin/bash
-
-echo -n "Enter a number:"
-read N
-
-if [[ $N -gt 10 ]]
-then
-       echo $N" is greater than 10"
-fi
-```
-
-Here we are using a new command ```read``` read will halt a program and wait for user input. You can enter any interger here, but if it larger than 10 we expect the following output:
-
-```
-N is greater than 10
-```
-where N is the number you entered. 
-Let's break this down. What is between the two square brakets is the CONDITION. In this case we are testing our variable N against the number 10. We want to see if N > 10 (that's what the -gt is for). There are a bunch of commands the most common of which are summarized in this table:
-
-Operator | Description
----------|------------
-! EXPRESSION | Negates EXPRESSION.
--n STRING | Checks if length of STRING is greater than zero.
--z STRING | Checks if length of STRING is zero.
-STRING1 = STRING2 | STRING1 is equal to STRING2
-STRING1 != STRING2 | STRING1 is not equal to STRING2
-INTEGER1 -eq INTEGER2 | INTEGER1 is numerically equal to INTEGER2
-INTEGER1 -gt INTEGER2 | INTEGER1 is numerically greater than INTEGER2
-INTEGER1 -lt INTEGER2 | INTEGER1 is less than INTEGER2
-
-There are others, but these are the most useful.
-
-Something important to note is that if statements in bash are not as intuitive as they are in other programming languagles like Python or Perl. From the table above we see the > and < symbols are not used they are instead replaced with -gt and -lt. This can cause some confusion so be sure you get the syntax right.
-
-## Finally Some Biology
-I thought I would end this tutorial on a more biological note. RNA Sequencing has become a routine procedure in many labs and it is likely your PI may have handed you a bunch of files and told you to get craking. This tutorial is not going to focus on *how* to analyze RNA-Seq data. Rather I wanted to take you from raw data to a count matrix you can use in your own data analysis. 
-
-RNA-Sequencing experiments begin in the wet lab with purifying RNA from an organism then sequencing that RNA (probably why it's called RNA sequencing. I love it when names make sense). We will come in after this sequencing step. Once the RNA has been sequenced you will recieve a bunch of (pretty large) files in a format called ```fastq```. Fastq files look like this:
-
-```
-@A00810:21:HFL2MDRXX:1:2101:24388:1016 1:N:0:ACACAGGTAT+ATGTTCGTTC
-CNCGGAAAGTATTCCGTGGAGGGCTCCGCCGAGAGCGAGCTGCTTCGACAGGTCGAGG
-+
-F#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-@A00810:21:HFL2MDRXX:1:2101:29559:1016 1:N:0:ACACAGGTAT+ATGTTCGTTC
-GNTATCTTTACAGGTTAAGTCTGGTGAGAATATCTCTTAAGGGAAGATTTTCAATCTCTTCTTTCCCCATTTTACGGGTGTTTCTTCTTGATTGCCTCGTT
-+
-F#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-@A00810:21:HFL2MDRXX:1:2101:29613:1016 1:N:0:ACACAGGTAT+ATGTTCGTTC
-ANTGAACGCCGTACTCCGCCAACGCCGCCGTGACCGTCTCCGGCGACAGCCGCTCCGTTCCCACCACCTCCACCTGCCATACAAAGCTGCTCATGACCAGC
-+
-F#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-@A00810:21:HFL2MDRXX:1:2101:13856:1031 1:N:0:ACACAGGTAT+ATGTTCGTTC
-CNGATGGAAAGCGAGGAGTGAAGACCAAGGTTGAGCCGACGCTGCAGGAAGCTCCGGGCGTTTATAACGATACGATTCTTGCCGGTCTCGACTATCTGCT
-+
-F#FFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-```
-Each sequence is split over 4 lines. The first line beginning with ```@``` is the sequence identifier. The second line is the actual sequence, the third line is a ```+``` idnicating the start of the quality calls, and the fourth line are the quality calls for this sequence. 
-
-I have in the data directory two fastq files taken from WT *Acinetobacter baumannii* ATCC 17978 treated with and without polymyxin B. (GEO accession: [GSE163581](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE163581)). I subsampled the files down from the orginal 23 million reads to a more manageable 100k reads per sample. This was done only to speed up the processing.  
