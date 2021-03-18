@@ -62,7 +62,7 @@ You learned during the last workshop about the pipe ```|``` operator that allows
 
 Programming in bash is just like programming in other languages. So the skills you pick up here can easily transfer to other languages as well.
 
-In order to write our programs I will need to introduce a new command ```nano``` nano is one Unix's built in text editors (other text editors are aviable).
+In order to write our programs I will need to introduce a new command ```nano``` nano is one Unix's built in text editors ([other](https://www.vim.org/) [text editors](https://www.gnu.org/software/emacs/) [are available](https://xkcd.com/378/)).
 
 To open a file with nano:
 ```
@@ -72,11 +72,12 @@ Your screen will shift to something like this:
 ![VimSample1](Images/nano1.png)
 You can type anything you want just like you can in Notepad or TextEdit. 
 Go ahead and type the following:
+
 ```{bash}
 #!bin/bash
 echo "Hello World!"
 ```
-Once you've typed that hit ```CTRL + X``` you will then be prompted to save your work. Type ```Y``` to save then hit ```Enter```` and you should be brought back to your normal bash shell.
+Once you've typed that hit ```CTRL + X``` you will then be prompted to save your work. Type ```Y``` to save then hit ```Enter``` and you should be brought back to your normal bash shell.
 
 Let's run our program:
 ```
