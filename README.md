@@ -118,6 +118,60 @@ The answer to life the universe and everything is: 42
 ```
 
 Here we see an example of declaring a variable. Variables can store values to be used later. They can be numeric or strings. In this case we define a variable ```x``` to be the number ```42```. We then print the variable to the screen using the echo command. Notice how we have to call the variable as ```$x```. This is true of every variable in bash scripting. You need that $. 
+
+### Let's practice:
+Let's give you some practice using variables.
+1. Open a new script called ```Exercise1.sh```
+2. Assign the names "Jess", "Jack", and "Jenn" to the variables a, b, c
+3. Add a line that uses these variables to print out the sentence:
+   "Jess, Jack, and Jenn say hi!"
+   
+### Parameter and command expansion
+A useful feature of bash is parameter expansion. 
+say we have a variable storing the word 'cat'
+
+```
+x='cat'
+```
+We want to print the word cats without making another variable. 
+
+We could try:
+```
+echo $xs #This will not work
+```
+
+But this won't work, because Unix thinks we want to print a variable called 'xs'.
+
+To solve this we can use parameter expansion which has the following syntax:
+```
+echo ${x}s
+```
+Which will print what we want. 
+
+Command expansion is another tool it can let us evalulate commands inside of other commands. For example:
+
+```
+head $(ls *.sh)
+```
+
+It can also let us set the output of some commands as variables. For instance:
+
+```
+Files=$(ls *.txt)
+```
+
+Will give us a variable that is a space seperated list of all text files in the current directory. 
+
+### More Practice:
+ 1) Use parameter expansion and the variables from Exercise 1.1 (you can add to the exercise 1 file or rewrite them in a new file) to print the
+    sentence:
+    "Many Jesses, Jacks, and Jenns say bye!
+ 2) The command `whoami` prints your username.
+    The command `date` prints the current time.
+    Use command substitution to print the sentence:
+    "I am <username> and today is <date>"
+    Replacing <username> and <date> with output of `whoami` and `date`
+
 ### Taking arguments from the command line.
 
 Let's modify our script to take an argument from the command line. Let's open a new file: 
@@ -138,14 +192,24 @@ bash myecho.sh "I want to print this string"
 ```
 Congratulations you've just rewritten the echo command. But it illustrates a key feature of bash scripting: we can take in arguments from the command line and do things with them.
 
-Arguments coming in from the command line are stored in a hidden list we can access with the variables $1, $2, $3, etc. This is very useful if we want to run a tool on multiple files and we want to keep the same parameters. Here is an example using the aligner ```bowtie2```:
+Arguments coming in from the command line are stored in a hidden list we can access with the variables $1, $2, $3, etc. 
+
+
+
+This is very useful if we want to run a tool on multiple files and we want to keep the same parameters. Here is an example using the aligner ```bowtie2```:
 
 ```
 #!/bin/bash
 
 bowtie2 --sensitive -p 32 -x Index/AB -1 $1 -2 $2 -S $3
 ```
- If I save this to a script I can call it with my two input files and an outfile without having to type the command each time. Or better yet:
+
+If I wrote it to a file called bowtieScript.sh I would run it like this:
+
+```
+bash bowtieScript.sh ForwardReads.fastq ReverseReads.fastq Alignment.bam
+```
+ If I save this to a script I can call it with my two input files and an outfile without having to type the command each time. Or better yet.
 
 ## Running through a list: The for loop:
 There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
