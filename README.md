@@ -17,7 +17,7 @@ Linux/Unix has become the standard operating system for high performance computi
 *No GUI No Problem :sunglasses:*
 
 # Some Review
-By now you probably know enough Unix to be dangerous. Congratulations! It won't hurt to reveiw some fundamentals though:
+By now you probably know enough Unix to be dangerous. Congratulations! It won't hurt to review some fundamentals though:
 
 Command | Description
 --------|-------------
@@ -40,7 +40,8 @@ Commands can take multiple flags/options as well as arguments take the rm comman
 
 ex:
 
-```ls -lh``` lists all files in directory and their sizes
+```ls -lh``` lists all files in directory and their sizes.
+
 ```head -n 5 \<file\>``` prints first 5 lines of a file.
 
 You can always see a list of options for a given command by entering:
@@ -132,7 +133,7 @@ Here we see an example of declaring a variable. Variables can store values to be
 ### Let's practice:
 Let's give you some practice using variables.
 
-1. Open a new script called ```Exercise1.sh```  (remember `nano`)
+1. Open a new script called ```Exercise1.sh```  (using `nano`)
 2. Assign the names "Jess", "Jack", and "Jenn" to the variables a, b, c
 4. Add a line that uses these variables to print out the sentence:
    "Jess, Jack, and Jenn say hi!"
@@ -247,15 +248,15 @@ bowtie2 --sensitive -p 32 -x Index/AB -1 $1 -2 $2 -S $3
 If I wrote it to a file called bowtieScript.sh I would run it like this:
 
 ```
-bash bowtieScript.sh ForwardReads.fastq ReverseReads.fastq Alignment.bam
+bash bowtieScript.sh ForwardReads.fastq ReverseReads.fastq Alignment.sam
 ```
 ### Practice:
 1) Write a line to print arguments 0, 1 and 2
 
 ## Running through a list: The for loop:
-There are many times when we want to repeat a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
+There are many times when we want to repeat a set of instructions over many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a `for` loop. The `for` loop is outlined in this flowchart:
 ![ForLoop](Images/forLoop.png)
-I think it is best illistrated with an example:
+I think it is best illustrated with an example:
 
 ```
 for i in 1 2 3 4 5 6 7 8 9 10
@@ -278,15 +279,15 @@ which will produce:
 9
 10
 ```
-We just printed the numbers 1 to 10 without needing 10 separate echo statements! So what's going on here? 
+We just printed the numbers 1 to 10 without needing 10 separate `echo` statements! So what's going on here? 
 
-Let's break down the first line: ```for x in 1 2 3 4 5 6...``` The word for is a key word in Unix that means I am starting a 'for' loop. 
+Let's break down the first line: ```for x in 1 2 3 4 5 6...``` The word `for` is a key word in Unix that means I am starting a `for` loop. 
 
-i is a variable (it could be anything I just chose 'i' but you can give it any name you want like 'variable' or 'bob'), and the stuff after the word "in" are the values I want i to take on. 
+`i` is a variable (it could be anything I just chose `i` randomly, but you can give it any name you want like `variable` or `bob`), and the stuff after the word "in" are the values I want `i` to take on. 
 
-The next line is the word ```do``` this is another key word in Unix. It means that for every value of i do the following. 
+The next line is the word ```do``` this is another key word in Unix. It means that for every value of `i` do the following. 
 
-The next line is my code that I want done. 
+The next line is my code that I want to run. 
 
 And finally we end with the word ```done``` to let the computer know we are finished. 
 
@@ -301,25 +302,28 @@ We then go back to our list, and see if we have reached the end. We have not, so
     Hello Jess
     Hello Jack
     Hello Jenn
+    
  2) Write a for-loop that uses command substitution to loop over the first
-    three names in names.txt (located in the `data` directory) (hint: use `head -3)`. Output should be:
+    three names in names.txt (located in the `data` directory) (hint: use `head -3)`.
+    Output should be:
     Hello Alice
     Hello Bob
     Hello Carl
+    
  3) Adapt the for-loop from 2) to write the output for each name to a file
     named \<name\>.txt (pro tip: make a new directory to contain all the text files).
     
 # Slurm and the HPC.
 Much of what you probably want to do requires a lot of computational resources. 
 
-Luckily Iowa State provides us with some great computational resources (In fact we are using them right now!). You can find out more about what kind of machines they have here(https://www.hpc.iastate.edu/systems).
+Luckily, Iowa State provides us with some great computational resources (In fact we are using them right now!). You can find out more about what kind of machines they have [here](https://www.hpc.iastate.edu/systems).
 
-We will assume you have access (if you don't there is a link to sign up on the [homepage](https://www.hpc.iastate.edu/). 
+We will assume you have access to a cluster (if you don't there is a link to sign up on the [HPC homepage](https://www.hpc.iastate.edu/), you may have to talk with your PI). 
 
 To access one of the clusters you can use the `ssh` command you used to get into this session. Just replace the `@hpc-class...` with the correct cluster.
 
 ### Let's talk about Slurm
-Slurm is a job manager that Iowa State uses to run your scripts on the cluster in an orderly fashion.
+Slurm is a job manager that Iowa State uses to run your scripts in an orderly fashion.
 
 A Slurm script is just like any other bash script, but you need to add some extra lines at the beginning:
 
@@ -334,9 +338,11 @@ A Slurm script is just like any other bash script, but you need to add some extr
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 ```
 
-All the #SBATCH commands you see are special comments that Slurm can look at to get information about your job like the time, number of nodes you want, the number of threads per node, and a job name.
+All the #SBATCH lines you see are special comments that Slurm can look at to get information about your job like how long you want the job to run for, number of nodes you want, the number of threads per node, and a job name.
 
-Incidently you don't have to memorize all the slurm comments Iowa State provides a Slurm script generator that will serve most of your needs it even has options for emailing you when your jobs finish: https://www.hpc.iastate.edu/guides/classroom-hpc-cluster/slurm-job-script-generator
+Incidently you don't have to memorize all the slurm comments. Iowa State provides a Slurm script generator that will serve most of your needs it even has options for emailing you when your jobs finish:
+
+https://www.hpc.iastate.edu/guides/classroom-hpc-cluster/slurm-job-script-generator
 
 This is the one for hpc-class (the server we are running on) but there are others for other servers.
 
@@ -383,7 +389,7 @@ do
    echo "The end is never."
 done
 ```
-Save it like normal. Let's go ahead an run it locally to see what the output is.
+Save it like normal. Let's go ahead and run it locally to see what the output is.
 
 As you can see it just prints out "The end is never." over and over with no end in sight.
 
@@ -402,13 +408,13 @@ Now let's run the infinte looping code on slurm:
 sbatch theEndIsNvr.sh
 ```
 
-This will now run on the cluster, forever taking up resources. We can check to see if it is running using the command `squeue`.
+This will now run on the cluster, forever taking up resources (ok realistically it will only run for 1 hour because that's the time we gave it). We can check to see if it is running using the command `squeue`.
 
-The output is divided into 9 fields: a job ID, a partition, a name, a user, a state, the time it has been running, the number of nodes, and the node list 
+The output is divided into 9 fields: a job ID, a partition, a name, a user, a state, the time it has been running, the number of nodes the job is using, and list of said nodes. 
 
 All of your jobs should be running so they will have the R state (the column after your user name). If they were queued they would have the PD state for pending.
 
-If you just want to see your jobs we can pass the -u flag to squeue like this:
+If you just want to see your jobs we can pass the -u flag to `squeue` like this:
 
 ```
 squeue -u \<NETID\>
@@ -418,10 +424,10 @@ This will filter the output to only your user name.
 
 Our code will never stop. So to avoid receiving some nasty emails from IT we should do the responsible thing and stop it. 
 
-To stop a job we use the `scancel` command it requires that we supply a job ID. You can find the job ID in the first column of the `squeue` output. The command will be:
+To stop a job we use the `scancel` command. It requires that we supply a job ID. You can find the job ID in the first column of the `squeue` output. The command will be:
 
 ```
-scancel \<jobID\>
+scancel <jobID>
 ```
 You will not get a message from slurm, but if you `squeue` you should see your script is no longer running. 
 
@@ -430,23 +436,28 @@ The cluster has many different tools installed on it. We can see a list of these
 
 This will give you a long long list of availible modules. But you probalby have an idea of the kind of tool you want. 
 
-Let's see if the cluster has `bowtie2` to do this we will use the `module spider` command. 
-```
-module spider bowtie2
-```
+Let's see if the cluster has `bowtie2`. To do this we will use the `module spider` command. 
+
 `module spider` takes a string as an argument, and will search through all the availible commands for what you want. 
 
 We can see `bowtie2` is availible. 
 
-In order to use a tool installed on the cluster we must first activate the tool. To do this we use the command `module load`
+```
+module spider bowtie2
+```
+
+In order to use a tool installed on the cluster we must first activate the tool. To do this we use the command `module load`.
+
 ```
 module load bowtie2
 ```
+
 You will now find if you use the command:
 
 ```
 bowtie2 -h
-``` 
+```
+
 that you will get a man page for bowtie2. 
 
 We can now put our skills to the test. Let's build a script that will run through a directory of single end sequence files and align them one by one to a reference genome:
@@ -459,15 +470,20 @@ We can now put our skills to the test. Let's build a script that will run throug
 #SBATCH --ntasks-per-node=16   # 16 processor core(s) per node 
 #SBATCH --job-name="ThisIsTheLoopThatNeverEnds"
 
+
+#load the tools we want to use
 module load bowtie2 # load the bowtie2 aligner
 module load samtools #load samtools
 
 for fq in data/seqs/*.fastq #Creating a for loop to run over the files in dir.
 do
 
-#run bowtie2 on our fastq file aligning to reference sequence index (made previously using bowtie2-build see bowtie2's manual for details). We then pipe the output of bowtie2 to samtools view. 
+#run bowtie2 on our fastq file aligning to reference sequence index (made previously using bowtie2-build see bowtie2's manual for details). 
+
+#We then pipe the output of bowtie2 to samtools view. 
 
 #samtools view will compress our alignment files because they can be quite large.
+
 #We finish by redirecting (>) samtools output to a file. Parameter expansion is used to make sure the final file has the same ID as the input file. 
 
 bowtie2 -x data/Index/RefSeqIndex -U $fq | samtools view -b > ${fq}.bam 
@@ -481,8 +497,10 @@ We will not be running this script in this course as alignment is a computationa
 
 I am required by law to tell you:
 **Do not run intensive commands, or store things on the head node**
+
 Remember to use Slurm to run your commands on the cluster. Try to avoid using the interactive nodes to run your scripts. Use the interactive nodes to trouble shoot and test.
-**Never run the command rm -rf /**
+
+**Never run the command `rm -rf /`!**
 
 # grep and the Power of Regular Expressions.
 ![xkcd208](Images/xkcd208.png)
