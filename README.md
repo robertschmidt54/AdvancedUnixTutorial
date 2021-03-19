@@ -2,7 +2,7 @@
 ### Rob Schmidt
 Tutorial for workshop given on 3/20/21
 
-This is the second in a series of tutorials for the Bioinformatics and Computational Biology workshop series on Unix. In this tutorial we will cover some more advanced Unix topics. 
+This is the 2nd in a series of tutorials for the Bioinformatics and Computational Biology workshop series on Unix. In this tutorial, we will cover some more advanced Unix topics. 
 
 
 ```
@@ -11,20 +11,20 @@ ssh <netID>@hpc-class.its.iastate.edu
 # Installation
 < add installation of putty and winscp instructions >
 # Let's get started: Why do we even want to learn about Unix?
-Linux/Unix has become the standard operating system for high performance computing clusters (HPCs) all around the globe. If you want the power of an HPC you need to learn the fundamentals of Unix. Plus almost all of the most popular bioinformatics tools are used on the commandline. Trust me it may look intimidating at first, but I hope you are finding it is not as hard as you may have thought.
+Linux/Unix has become the standard operating system for high performance computing clusters (HPCs) all around the globe. If you want the power of an HPC you need to learn the fundamentals of Unix. Plus almost all of the most popular bioinformatics tools are used on the command line. Trust me it may look intimidating at first, but I hope you are finding it is not as hard as you may have thought.
 
 ![No GUI No Problem](Images/NoGUINoProblem.png)
 *No GUI No Problem :sunglasses:*
 
 # Some Review
-By now you probably know enough Unix to be dangerous. Congratulations! It wont hurt to reveiw some fundamentals though:
+By now you probably know enough Unix to be dangerous. Congratulations! It won't hurt to reveiw some fundamentals though:
 
 Command | Description
 --------|-------------
 ls \<directory\> | Lists all files in the current directory. If used without an argument lists files in current directory.
 cd \<directory\> | Changes to a directory.
-rm \<file\> | Permenatly deletes a file.
-rm -r \<directory\> | Permenatly deletes a directory. **Be very careful with rm. Always be absolutely sure you know what you are deleting.**
+rm \<file\> | Permanently deletes a file.
+rm -r \<directory\> | Permanently deletes a directory. **Be very careful with rm. Always be absolutely sure you know what you are deleting.**
 cat \<file\> | Prints contents of file to screen.
 less \<file\> | Opens file for viewing in the less interface.
 more \<file\> | Opens file for viewing in the more interface.
@@ -37,32 +37,38 @@ mkdir \<directory\> | make new directory.
 touch \<file\> | make a new file.
 
 Commands can take multiple flags/options as well as arguments take the rm command. Options always follow 1 or 2 "-" characters in the command.
+
 ex:
+
 ```ls -lh``` lists all files in directory and their sizes
 ```head -n 5 \<file\>``` prints first 5 lines of a file.
 
 You can always see a list of options for a given command by entering:
+
 ```
-man \<command\>
+man <command>
 ```
 or
-```
-\<command\> -h
-```
-Where you can replace \<command\> with any command you know. Not all commands will work with the -h option, but most basic unix commands will work with man. The man (short for manual) command will bring up the documentation (also called the man page) for the command. Very useful if you ever forget what a commmand is suposed to do or the options to that command.
 
-I should remind you: **rm -r can be a very dangerous command** Always be sure you are using it properly. **NEVER USE THE COMMAND: rm -rf /**
+```
+<command> -h
+```
+Where you can replace \<command\> with any command you know. Not all commands will work with the -h option, but most basic unix commands will work with man. 
+
+The man (short for manual) command will bring up the documentation (also called the man page) for the command. Very useful if you ever forget what a commmand is supposed to do or the options to that command.
+
+I should remind you: **rm -r can be a very dangerous command** Always be sure you are using it properly. **NEVER USE THE COMMAND: rm -rf /** you will literally delete everything on your hard drive.
 
 
 
 # Introduction to Programming with Unix
 We have learned how to run commands in Unix one at a time via the commandline. However, most of the time we would like to run multiple commands in sequence. 
 
-You learned during the last workshop about the pipe ```|``` operator that allows us to chain commands together. This is useful, but will quickly becomes combersome when you have more than a handfull of commands you need to run on multiple files. Enter bash scripting!
+You learned during the last workshop about the pipe ```|``` operator that allows us to chain commands together. This is useful, but will quickly becomes cumbersome when you have more than a handfull of commands you need to run on multiple files. Enter bash scripting!
 
 Programming in bash is just like programming in other languages. So the skills you pick up here can easily transfer to other languages as well.
 
-In order to write our programs I will need to introduce a new command ```nano``` nano is one Unix's built in text editors ([other](https://www.vim.org/) [text editors](https://www.gnu.org/software/emacs/) [are available](https://xkcd.com/378/)).
+In order to write our programs, I will need to introduce a new command ```nano``` nano is one of Unix's built in text editors ([other](https://www.vim.org/) [text editors](https://www.gnu.org/software/emacs/) [are available](https://xkcd.com/378/)).
 
 To open a file with nano:
 ```
@@ -85,18 +91,22 @@ echo "Hello World!"
 Once you've typed that hit ```CTRL + X``` you will then be prompted to save your work. Type ```Y``` to save then hit ```Enter``` and you should be brought back to your normal bash shell.
 
 Let's run our program:
+
 ```
 bash helloWorld.sh
 ```
+
 Which should print:
+
 ```
 Hello World!
 ```
+
 Congratulations you've just written your first program!
 
 Let's take some time to break down what we just did. The first line: ```#!bin/bash``` is required at the beginning of every bash script. It tells the computer what program to use to interpret our instructions. 
 
-You have already seen the ```echo``` command from the last workshop. As a reminder echo prints what ever follows it to the screen. In our case it will be the string "Hello World!".
+You have already seen the ```echo``` command from the last workshop. As a reminder echo prints whatever follows it to the screen. In our case it will be the string "Hello World!".
 
 You may have noticed the lines that begin with ```#``` didn't print or mess anything up. This is because they are what are known as comments. Comments are ignored by computers, and are for us humans to know what the code is doing.
 
@@ -121,9 +131,10 @@ Here we see an example of declaring a variable. Variables can store values to be
 
 ### Let's practice:
 Let's give you some practice using variables.
+
 1. Open a new script called ```Exercise1.sh```  (remember `nano`)
 2. Assign the names "Jess", "Jack", and "Jenn" to the variables a, b, c
-3. Add a line that uses these variables to print out the sentence:
+4. Add a line that uses these variables to print out the sentence:
    "Jess, Jack, and Jenn say hi!"
    
 ### Parameter and command expansion
@@ -143,12 +154,14 @@ echo $xs #This will not work
 But this won't work, because Unix thinks we want to print a variable called 'xs'.
 
 To solve this we can use parameter expansion which has the following syntax:
+
 ```
 echo ${x}s
 ```
+
 Which will print what we want. 
 
-Command expansion is another tool it can let us evalulate commands inside of other commands. For example:
+Command substitution is another tool it can let us evaluate commands inside of other commands. For example:
 
 ```
 head $(ls *.sh)
@@ -160,12 +173,13 @@ It can also let us set the output of some commands as variables. For instance:
 Files=$(ls *.txt)
 ```
 
-Will give us a variable that is a space seperated list of all text files in the current directory. 
+Will give us a variable that is a space separated list of all text files in the current directory. 
 
 ### More Practice:
- 1) Use parameter expansion and the variables from Exercise 1.1 (you can add to the exercise 1 file or rewrite them in a new file) to print the
+ 1) Use parameter expansion and the variables from Exercise 1 (you can add to the exercise 1 file or rewrite them in a new file) to print the
     sentence:
     "Many Jesses, Jacks, and Jenns say bye!
+    
  2) The command `whoami` prints your username.
     The command `date` prints the current time.
     Use command substitution to print the sentence:
@@ -174,12 +188,14 @@ Will give us a variable that is a space seperated list of all text files in the 
 
 ### Taking arguments from the command line.
 
-Let's make a script to take an argument from the command line. Let's open a new file: 
+Let's make a script to take an argument from the command line. Let's open a new file:
+
 ```
 nano myEcho.sh
 ```
 
 We will add the following to it:
+
 ```
 #!/bin/bash
 
@@ -192,7 +208,7 @@ bash myecho.sh "I want to print this string"
 ```
 Congratulations you've just rewritten the echo command!
 
-As usless as this is it does illustrate a key feature of bash scripting: we can take in arguments from the command line and do things with them.
+As useless as this is it does illustrate a key feature of bash scripting: we can take in arguments from the command line and do things with them.
 
 Arguments coming in from the command line are stored in a hidden list we can access with the variables $0, $1, $2, $3, etc. 
 
@@ -237,7 +253,7 @@ bash bowtieScript.sh ForwardReads.fastq ReverseReads.fastq Alignment.bam
 1) Write a line to print arguments 0, 1 and 2
 
 ## Running through a list: The for loop:
-There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
+There are many times when we want to repeat a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
 ![ForLoop](Images/forLoop.png)
 I think it is best illistrated with an example:
 
@@ -249,6 +265,7 @@ done
 ```
 
 which will produce:
+
 ```
 1
 2
@@ -261,9 +278,23 @@ which will produce:
 9
 10
 ```
-We just printed the numbers 1 to 10 with out needing 10 seperate echo statements! So what's going on here? Let's breakdown the first line: ```for x in 1 2 3 4 5 6...``` The word for is a key word in Unix that means I am starting a for loop. i is a variable (it could be anything I just chose but you can give it any name you want like variable or bob), and the stuff after the word "in" are the values I want i to take on. The next line is the word ```do``` this is another keyword in unix. It means that for every value of i do the following. The next line is my code that I want done. And finally we end with the word ```done``` to let the computer know we are finished. 
+We just printed the numbers 1 to 10 without needing 10 separate echo statements! So what's going on here? 
 
-When we start the loop ```i``` first takes on the value 1 since it is the first in the list. We then move to the instruction which is to print whatever the value of ```i``` is. When that is done, we find there is no other instruction. We have just completed one itteration of the loop. We then go back to our list, and see if we have reached the end. We have not, so ```i``` will now be assigned the value 2 (the next value in the list). We then repeate  the loop until ```i``` can no longer take on anymore values. Once we reach that point we are done, and exit the loop. 
+Let's break down the first line: ```for x in 1 2 3 4 5 6...``` The word for is a key word in Unix that means I am starting a 'for' loop. 
+
+i is a variable (it could be anything I just chose 'i' but you can give it any name you want like 'variable' or 'bob'), and the stuff after the word "in" are the values I want i to take on. 
+
+The next line is the word ```do``` this is another key word in Unix. It means that for every value of i do the following. 
+
+The next line is my code that I want done. 
+
+And finally we end with the word ```done``` to let the computer know we are finished. 
+
+When we start the loop ```i``` first takes on the value 1 since it is the first in the list. We then move to the instruction which is to print whatever the value of ```i``` is. 
+
+When that is done, we find there is no other instruction. We have just completed one itteration of the loop.
+
+We then go back to our list, and see if we have reached the end. We have not, so ```i``` will now be assigned the value 2 (the next value in the list). We then repeat the loop until ```i``` can no longer take on anymore values. Once we reach that point we are done, and exit the loop. 
 
 ### for loop practice
 1) Write a for-loop that prints (using the variables from exercise 1, you can rewrite them in this file)
@@ -449,7 +480,7 @@ echo "Done :)"
 We will not be running this script in this course as alignment is a computationally intensive process.  
 
 I am required by law to tell you:
-**Do not run intensive commands commands, or store things on the head node**
+**Do not run intensive commands, or store things on the head node**
 Remember to use Slurm to run your commands on the cluster. Try to avoid using the interactive nodes to run your scripts. Use the interactive nodes to trouble shoot and test.
 **Never run the command rm -rf /**
 
@@ -463,7 +494,7 @@ Often we find ourselves in the unenviable position of needing to search large bo
 grep
 ```
 
-grep (short for **g**lobally search for a **r**egular **e**xpression and **p**rint matching lines) acts like the find function in many programs. You provide it some text and it will search a file for that text and return matching results. Let's give it a try now. I have in the data directory a text file containing a list of different words (conviently called ```list.txt```:
+grep (short for **g**lobally search for a **r**egular **e**xpression and **p**rint matching lines) acts like the find function in many programs. You provide it some text and it will search a file for that text and return matching results. Let's give it a try now. I have in the data directory a text file containing a list of different words (conveniently called ```list.txt```:
 
 ```
 apple
@@ -481,10 +512,12 @@ Cat
 
 ```
 if we run the following command:
+
 ```
 grep 'apple' data/list.txt
 ```
 We should see this output:
+
 ```
 apple
 ```
@@ -495,86 +528,17 @@ You may have noticed: there are two instances of the word 'apple': 'apple' and '
 ```
 man grep
 ```
-
-Output:
-```
-GREP(1)                           User Commands                           GREP(1)
-
-NAME
-       grep, egrep, fgrep, rgrep - print lines matching a pattern
-
-SYNOPSIS
-       grep [OPTIONS] PATTERN [FILE...]
-       grep [OPTIONS] -e PATTERN ... [FILE...]
-       grep [OPTIONS] -f FILE ... [FILE...]
-
-DESCRIPTION
-       grep searches for PATTERN in each FILE.  A FILE of “-” stands for standard
-       input.  If no FILE  is  given,  recursive  searches  examine  the  working
-       directory,  and  nonrecursive  searches  read standard input.  By default,
-       grep prints the matching lines.
-
-       In addition, the variant programs egrep, fgrep and rgrep are the  same  as
-       grep -E,   grep -F,   and   grep -r,  respectively.   These  variants  are
-       deprecated, but are provided for backward compatibility.
-
-OPTIONS
-   Generic Program Information
-       --help Output a usage message and exit.
-
-       -V, --version
-              Output the version number of grep and exit.
-
-   Matcher Selection
-       -E, --extended-regexp
-              Interpret PATTERN as  an  extended  regular  expression  (ERE,  see
-              below).
-
-       -F, --fixed-strings
-              Interpret  PATTERN  as  a list of fixed strings (instead of regular
-              expressions), separated by newlines, any of which is to be matched.
-
-       -G, --basic-regexp
-              Interpret PATTERN as a basic regular expression (BRE,  see  below).
-              This is the default.
-
-       -P, --perl-regexp
-              Interpret  the  pattern  as  a  Perl-compatible  regular expression
-              (PCRE).  This is experimental and grep -P may warn of unimplemented
-              features.
-
-   Matching Control
-       -e PATTERN, --regexp=PATTERN
-              Use  PATTERN as the pattern.  If this option is used multiple times
-              or is combined with the -f (--file) option, search for all patterns
-              given.  This option can be used to protect a pattern beginning with
-              “-”.
-
-       -f FILE, --file=FILE
-              Obtain patterns from FILE, one per line.  If this  option  is  used
-              multiple times or is combined with the -e (--regexp) option, search
-              for all patterns given.  The empty file contains zero patterns, and
-              therefore matches nothing.
-
-       -i, --ignore-case
-              Ignore  case  distinctions,  so that characters that differ only in
-              case match each other.
-
-       -v, --invert-match
-              Invert the sense of matching, to select non-matching lines.
-...
-```
- I have omitted some of the output to save some space. But we can see there is a -i option that is for ignoring case. Let's give it a go:
+ We can see there is a -i option that is for ignoring case. Let's give it a go:
  
  ```
  grep -i 'apple' data/list.txt
  ```
  The output should look like:
+ 
  ```
  apple
  Apple
  ```
- 
  
 Searching for particular words is great and all, but the true power of grep comes from its use of *regular expressions*
 ## So what are these regular expressions you keep going on about?
@@ -608,12 +572,13 @@ peach
 peach
 spam
 ```
-these are the words that have a the letter 'p' *anywhere* in the word.  We can alter it easily:
+These are the words that have a the letter 'p' *anywhere* in the word.  We can alter it easily:
 
 ```
 grep 'pp' data/list.txt
 ```
 will return:
+
 ```
 apple
 Apple
@@ -632,7 +597,7 @@ $ | Match at the end of the line. | 'Bob$' will match any line that ends with th
 \D | any non digit character. | '\d\d\D\d\d' will match any 4 digits seperated by a non digit like '12A34'
 \S | any non whitespace character. | 'a\Sb' will match the letters a, and b seperated by a non white space character. 
 \+ | match one or more of previous character. |'a+' will find words that have one or more 'a' in them. 
-\* | match zero or more of previous character. | 'This.\*Rocks' will match the words This and Rocks seperated by any number of characters.
+\* | match zero or more of previous character. | 'This.\*Rocks' will match the words This and Rocks separated by any number of characters.
 {...} | can be used to specify number of matches | p{3} will match words with exactly 3 p's.
 (...) | specify a group of characters to match. | A(nt\|pple) will match Ant or Apple. This differs from [...] in that [...] matches individual characters while (...) matches groups of characters.
 [...] | match one of the characters in the brackets. | [bc]at will match cat and bat.
@@ -655,7 +620,7 @@ One other thing we should take note of is: most of these special characters will
  
 ```
 
-Meaning we either need the -E option or remember to put backslashes infront of these special characters. The following two commands are equilivent:
+Meaning we either need the -E option or remember to put backslashes in front of these special characters. The following two commands are equivalent:
 
 ```
 grep -E 'A(nt|pple)' data/list.txt
@@ -663,14 +628,16 @@ grep -E 'A(nt|pple)' data/list.txt
 grep 'A\(nt\|pple\)' data/list.txt
 ```
 # Regular Expression Practice Problems
-## Example of using Regular Expressions in bioinformatics: Restriction Enzyme sites.
-To try to tie these principles into biology let's take a look at using regular expressions and grep to locate and count restriction enzyme sites in a bacterial genome. Restriction enzymes are enzymes that cut DNA at very specific sequences. *Acinetobacter baumannii* is an opportunstic pathogen and a bacteria I used to work with as an undergrad. I have downloaded its entire genome from NCBI and placed it into the data folder with the file name ```AbaumanniiGenome.fasta```. 
+## Example of using Regular Expressions in Bioinformatics: Restriction Enzyme Sites.
+To try to tie these principles into biology, let's take a look at using regular expressions and grep to locate and count restriction enzyme sites in a bacterial genome. Restriction enzymes are enzymes that cut DNA at very specific sequences. *Acinetobacter baumannii* is an opportunistic pathogen and a species I used to work with as an undergrad. I have downloaded its entire genome from NCBI and placed it into the data folder with the file name `AbaumanniiGenome.fasta`. 
 
 EcoN1 is a restriction enzyme that cuts the following sequence:
+
 ```
 CCTNNNNNAGG
 ```
-The N's represent any nucleotide A, T, C, or G. Using what we know about regular expressions and other commands how many EcoN1 sites are there in the *A. baumannii* genome?
 
-## Naive gene finding
-One way to find potential genes is to look for sequences that start with the letters ATG, followed by any number of characters, then end with either TAG, TGA, or TAA. Using grep and regular expressions as well as you knowledge of other commands: how many genes could there be in *A. baumannii*?
+The N's represent any nucleotide A, T, C, or G. Using what we know about regular expressions and other commands, how many EcoN1 sites are there in the *A. baumannii* genome?
+
+## Naive Gene Finding
+One way to find potential genes is to look for sequences that start with the letters ATG, followed by any number of characters, then end with either TAG, TGA, or TAA (I should probably point out this is not always a *good* way to find genes, but it is easy.). Using grep and regular expressions as well as your knowledge of other commands: how many genes could there be in *A. baumannii*?
