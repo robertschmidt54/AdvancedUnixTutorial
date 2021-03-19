@@ -4,12 +4,14 @@ Tutorial for workshop given on 3/20/21
 
 This is the 2nd in a series of tutorials for the Bioinformatics and Computational Biology workshop series on Unix. In this tutorial, we will cover some more advanced Unix topics. 
 
-
+# Before Starting Run These Commands:
 ```
 ssh <netID>@hpc-class.its.iastate.edu
 ```
-# Installation
-< add installation of putty and winscp instructions >
+```
+git clone https://github.com/robertschmidt54/AdvancedUnixTutorial/
+```
+
 # Let's get started: Why do we even want to learn about Unix?
 Linux/Unix has become the standard operating system for high performance computing clusters (HPCs) all around the globe. If you want the power of an HPC you need to learn the fundamentals of Unix. Plus almost all of the most popular bioinformatics tools are used on the command line. Trust me it may look intimidating at first, but I hope you are finding it is not as hard as you may have thought.
 
