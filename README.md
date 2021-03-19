@@ -121,7 +121,7 @@ Here we see an example of declaring a variable. Variables can store values to be
 
 ### Let's practice:
 Let's give you some practice using variables.
-1. Open a new script called ```Exercise1.sh```
+1. Open a new script called ```Exercise1.sh```  (remember `nano`)
 2. Assign the names "Jess", "Jack", and "Jenn" to the variables a, b, c
 3. Add a line that uses these variables to print out the sentence:
    "Jess, Jack, and Jenn say hi!"
@@ -169,12 +169,12 @@ Will give us a variable that is a space seperated list of all text files in the 
  2) The command `whoami` prints your username.
     The command `date` prints the current time.
     Use command substitution to print the sentence:
-    "I am <username> and today is <date>"
-    Replacing <username> and <date> with output of `whoami` and `date`
+    "I am \<username\> and today is \<date\>"
+    Replacing \<username\> and \<date\> with output of `whoami` and `date`
 
 ### Taking arguments from the command line.
 
-Let's modify our script to take an argument from the command line. Let's open a new file: 
+Let's make a script to take an argument from the command line. Let's open a new file: 
 ```
 nano myEcho.sh
 ```
@@ -190,9 +190,11 @@ Go on and save it. Then type:
 ```
 bash myecho.sh "I want to print this string"
 ```
-Congratulations you've just rewritten the echo command. But it illustrates a key feature of bash scripting: we can take in arguments from the command line and do things with them.
+Congratulations you've just rewritten the echo command!
 
-Arguments coming in from the command line are stored in a hidden list we can access with the variables $1, $2, $3, etc. 
+As usless as this is it does illustrate a key feature of bash scripting: we can take in arguments from the command line and do things with them.
+
+Arguments coming in from the command line are stored in a hidden list we can access with the variables $0, $1, $2, $3, etc. 
 
 
 
