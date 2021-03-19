@@ -196,8 +196,30 @@ As usless as this is it does illustrate a key feature of bash scripting: we can 
 
 Arguments coming in from the command line are stored in a hidden list we can access with the variables $0, $1, $2, $3, etc. 
 
+For example:
 
+```
+#!/bin/bash
 
+echo $1
+
+echo $2
+
+echo $3 $5
+
+echo $4
+```
+
+will print when run:
+
+```
+bash myecho.sh "I want to print this string" "And this one" "This one too" "See how this works" "PI"
+
+I want to print this string
+And this one
+This one too PI
+See how this works
+```
 This is very useful if we want to run a tool on multiple files and we want to keep the same parameters. Here is an example using the aligner ```bowtie2```:
 
 ```
@@ -211,7 +233,8 @@ If I wrote it to a file called bowtieScript.sh I would run it like this:
 ```
 bash bowtieScript.sh ForwardReads.fastq ReverseReads.fastq Alignment.bam
 ```
- If I save this to a script I can call it with my two input files and an outfile without having to type the command each time. Or better yet.
+### Practice:
+1) Write a line to print arguments 0, 1 and 2
 
 ## Running through a list: The for loop:
 There are many times when we want to repeate a set of instructions to many elements in a list. Maybe we want to manipulate all the files in a directory, maybe we want to align a list of genes to a reference sequence, or maybe we just want to print out the numbers 1 to 10 in order. All of these can be accomplished using a for loop. The for loop is outlined in this flowchart:
@@ -242,12 +265,198 @@ We just printed the numbers 1 to 10 with out needing 10 seperate echo statements
 
 When we start the loop ```i``` first takes on the value 1 since it is the first in the list. We then move to the instruction which is to print whatever the value of ```i``` is. When that is done, we find there is no other instruction. We have just completed one itteration of the loop. We then go back to our list, and see if we have reached the end. We have not, so ```i``` will now be assigned the value 2 (the next value in the list). We then repeate  the loop until ```i``` can no longer take on anymore values. Once we reach that point we are done, and exit the loop. 
 
+### for loop practice
+1) Write a for-loop that prints (using the variables from exercise 1, you can rewrite them in this file)
+    Hello Jess
+    Hello Jack
+    Hello Jenn
+ 2) Write a for-loop that uses command substitution to loop over the first
+    three names in names.txt (located in the `data` directory) (hint: use `head -3)`. Output should be:
+    Hello Alice
+    Hello Bob
+    Hello Carl
+ 3) Adapt the for-loop from 2) to write the output for each name to a file
+    named \<name\>.txt (pro tip: make a new directory to contain all the text files).
+    
 # Slurm and the HPC.
+Much of what you probably want to do requires a lot of computational resources. 
+
+Luckily Iowa State provides us with some great computational resources (In fact we are using them right now!). You can find out more about what kind of machines they have here(https://www.hpc.iastate.edu/systems).
+
+We will assume you have access (if you don't there is a link to sign up on the [homepage](https://www.hpc.iastate.edu/). 
+
+To access one of the clusters you can use the `ssh` command you used to get into this session. Just replace the `@hpc-class...` with the correct cluster.
+
+### Let's talk about Slurm
+Slurm is a job manager that Iowa State uses to run your scripts on the cluster in an orderly fashion.
+
+A Slurm script is just like any other bash script, but you need to add some extra lines at the beginning:
+
+```
+#!/bin/bash
+
+#SBATCH --time=1:00:00   # walltime limit (HH:MM:SS)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --ntasks-per-node=16   # 16 processor core(s) per node 
+#SBATCH --job-name="MyJob"
+
+# LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
+```
+
+All the #SBATCH commands you see are special comments that Slurm can look at to get information about your job like the time, number of nodes you want, the number of threads per node, and a job name.
+
+Incidently you don't have to memorize all the slurm comments Iowa State provides a Slurm script generator that will serve most of your needs it even has options for emailing you when your jobs finish: https://www.hpc.iastate.edu/guides/classroom-hpc-cluster/slurm-job-script-generator
+
+This is the one for hpc-class (the server we are running on) but there are others for other servers.
+
+Let's run our helloWrold script from earlier on the cluster!
+In case you deleted it here it is with the right slurm comments:
+
+```
+#!/bin/bash
+
+#SBATCH --time=1:00:00   # walltime limit (HH:MM:SS)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --ntasks-per-node=16   # 16 processor core(s) per node 
+#SBATCH --job-name="MyJob"
+
+echo "Hello World!"
+
+#Set x to be the answer to life the universe and everything.
+x=42
+
+
+echo "The answer to life the universe and everything is: "$x
+```
+
+To get the cluster to run your script using Slurm the command is `sbatch`
+
+```
+sbatch helloWorld.sh
+
+```
+This should only take a few seconds. Congrats you've just run something using a high performance computing cluster.
+
+Let's make something that takes a little longer let's open a script called theEndisNvr.sh and place this into it:
+
+```
+#!/bin/bash
+
+#SBATCH --time=1:00:00   # walltime limit (HH:MM:SS)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --ntasks-per-node=16   # 16 processor core(s) per node 
+#SBATCH --job-name="ThisIsTheLoopThatNeverEnds"
+
+while [[ 1 -eq 1 ]]
+do
+   echo "The end is never."
+done
+```
+Save it like normal. Let's go ahead an run it locally to see what the output is.
+
+As you can see it just prints out "The end is never." over and over with no end in sight.
+
+What we have here is an infinite loop. Breaking the code down line by line we see a new kind of structure we haven't seen before: a `while` loop. 
+
+While loops will continue to loop through their instructions so long as their condition is true. 
+
+In our case the condition is 1 = 1. Which is always true no matter what. So the  
+code will continue to print forever.
+
+To get out of this hit `CTRL + C` to terminate the program.
+
+Now let's run the infinte looping code on slurm:
+
+```
+sbatch theEndIsNvr.sh
+```
+
+This will now run on the cluster, forever taking up resources. We can check to see if it is running using the command `squeue`.
+
+The output is divided into 9 fields: a job ID, a partition, a name, a user, a state, the time it has been running, the number of nodes, and the node list 
+
+All of your jobs should be running so they will have the R state (the column after your user name). If they were queued they would have the PD state for pending.
+
+If you just want to see your jobs we can pass the -u flag to squeue like this:
+
+```
+squeue -u \<NETID\>
+```
+
+This will filter the output to only your user name. 
+
+Our code will never stop. So to avoid receiving some nasty emails from IT we should do the responsible thing and stop it. 
+
+To stop a job we use the `scancel` command it requires that we supply a job ID. You can find the job ID in the first column of the `squeue` output. The command will be:
+
+```
+scancel \<jobID\>
+```
+You will not get a message from slurm, but if you `squeue` you should see your script is no longer running. 
+
+### Modules
+The cluster has many different tools installed on it. We can see a list of these tools using the `module avail` command.
+
+This will give you a long long list of availible modules. But you probalby have an idea of the kind of tool you want. 
+
+Let's see if the cluster has `bowtie2` to do this we will use the `module spider` command. 
+```
+module spider bowtie2
+```
+`module spider` takes a string as an argument, and will search through all the availible commands for what you want. 
+
+We can see `bowtie2` is availible. 
+
+In order to use a tool installed on the cluster we must first activate the tool. To do this we use the command `module load`
+```
+module load bowtie2
+```
+You will now find if you use the command:
+
+```
+bowtie2 -h
+``` 
+that you will get a man page for bowtie2. 
+
+We can now put our skills to the test. Let's build a script that will run through a directory of single end sequence files and align them one by one to a reference genome:
+
+```
+#!/bin/bash
+
+#SBATCH --time=1:00:00   # walltime limit (HH:MM:SS)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --ntasks-per-node=16   # 16 processor core(s) per node 
+#SBATCH --job-name="ThisIsTheLoopThatNeverEnds"
+
+module load bowtie2 # load the bowtie2 aligner
+module load samtools #load samtools
+
+for fq in data/seqs/*.fastq #Creating a for loop to run over the files in dir.
+do
+
+#run bowtie2 on our fastq file aligning to reference sequence index (made previously using bowtie2-build see bowtie2's manual for details). We then pipe the output of bowtie2 to samtools view. 
+
+#samtools view will compress our alignment files because they can be quite large.
+#We finish by redirecting (>) samtools output to a file. Parameter expansion is used to make sure the final file has the same ID as the input file. 
+
+bowtie2 -x data/Index/RefSeqIndex -U $fq | samtools view -b > ${fq}.bam 
+
+done
+
+#Print a nice message to screen.
+echo "Done :)"
+```
+We will not be running this script in this course as alignment is a computationally intensive process.  
+
+I am required by law to tell you:
+**Do not run intensive commands commands, or store things on the head node**
+Remember to use Slurm to run your commands on the cluster. Try to avoid using the interactive nodes to run your scripts. Use the interactive nodes to trouble shoot and test.
+**Never run the command rm -rf /**
 
 # grep and the Power of Regular Expressions.
 ![xkcd208](Images/xkcd208.png)
 
-*Source: Randal Monroe(https://xkcd.com/208/)*
+
 
 Often we find ourselves in the unenviable position of needing to search large bodies of text for something important. This could be an address, a name, a particular gene, or gene family. We could manually go line by line and search for what we want, but that sounds very boring, and prone to error. Luckily for us Unix provides a very powerful command for searching files for what we want: 
 ```
