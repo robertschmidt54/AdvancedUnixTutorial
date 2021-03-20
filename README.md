@@ -120,7 +120,7 @@ Let's try something a little more complicated open up your helloWorld.sh script 
 x=42
 
 
-echo "The answer to life the universe and everything is: "$x
+echo "The answer to life the universe and everything is: $x"
 ```
 Go ahead and save that then run it the output will now be:
 
@@ -137,7 +137,7 @@ Let's give you some practice using variables.
 
 1. Open a new script called ```Exercise1.sh```  (using `nano`)
 2. Assign the names "Jess", "Jack", and "Jenn" to the variables a, b, c
-4. Add a line that uses these variables to print out the sentence:
+3. Add a line that uses these variables to print out the sentence:
    "Jess, Jack, and Jenn say hi!"
    
 ### Parameter and command expansion
@@ -306,7 +306,7 @@ We then go back to our list, and see if we have reached the end. We have not, so
     Hello Jenn
     
  2) Write a for-loop that uses command substitution to loop over the first
-    three names in names.txt (located in the `data` directory) (hint: use `head -3)`.
+    three names in names.txt (located in the `data` directory) (hint: use `head -3`).
     Output should be:
     Hello Alice
     Hello Bob
@@ -419,7 +419,7 @@ All of your jobs should be running so they will have the R state (the column aft
 If you just want to see your jobs we can pass the -u flag to `squeue` like this:
 
 ```
-squeue -u \<NETID\>
+squeue -u <NETID>
 ```
 
 This will filter the output to only your user name. 
